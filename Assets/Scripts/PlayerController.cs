@@ -32,7 +32,8 @@ public class PlayerController : MonoBehaviour
         if (extraJump == true)
         {
             moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-        } else {
+        } else
+        {
             moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
         }
 
