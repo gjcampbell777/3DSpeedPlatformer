@@ -44,6 +44,13 @@ public class PlayerController : MonoBehaviour
             extraJump = true;
             moveDirection.y = 0.0f;
 
+            if(Input.GetKey(KeyCode.LeftShift))
+            {
+                moveDirection = (moveDirection.normalized * speed/2);
+            } else {
+                moveDirection = moveDirection.normalized * speed;
+            }
+
             if (Input.GetButtonDown("Jump"))
             {
                 moveDirection.y = jumpSpeed;
