@@ -16,13 +16,11 @@ public class PlayerController : MonoBehaviour
     public float gravity = 5.0f;
 
     private bool extraJump = true;
-    private float tempSpeed;
     private Vector3 moveDirection;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
-        tempSpeed = speed;
     }
 
     void Update()
@@ -48,10 +46,8 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 moveDirection = (moveDirection.normalized * speed/2);
-                tempSpeed = speed/2;
             } else {
                 moveDirection = moveDirection.normalized * speed;
-                tempSpeed = speed;
             }
 
             if (Input.GetButtonDown("Jump"))
