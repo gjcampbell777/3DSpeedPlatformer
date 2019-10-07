@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 20.0f;
     public float jumpSpeed = 15.0f;
     public float gravity = 5.0f;
+    public float rotationSpeed = 150.0f;
 
     private bool extraJump = true;
     private Vector3 moveDirection;
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
+
+        //Player rotation
+        transform.Rotate(0, Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed, 0);
 
         if (extraJump == true)
         {
