@@ -52,12 +52,13 @@ public class CameraController : MonoBehaviour
         float angleY = player.eulerAngles.y;
         float cameraAngle = transform.eulerAngles.y;
 
-        //if (Mathf.Abs(cameraAngle - angleY) <= 45){ Potential start for camera following similar to banjo/mario64
+        Quaternion rotation = Quaternion.Euler(angleX, angleY, 0);
 
-            Quaternion rotation = Quaternion.Euler(angleX, angleY, 0);
-            transform.position = player.position - (rotation * offset);
-
-        //}
+        if(!Input.GetKey(KeyCode.LeftShift)){
+        	transform.position = player.position - (rotation * offset);
+        } else {
+        	transform.position = player.position - offset;
+        }
 
         if(transform.position.y < player.position.y){
             transform.position = new Vector3(transform.position.x, player.position.y - 0.5f, transform.position.z);
