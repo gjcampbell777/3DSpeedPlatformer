@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate(){
         float camX = Input.GetAxisRaw("Mouse X") * rotateSpeed;
-        player.Rotate(0, camX, 0);
+        pivot.Rotate(0, camX, 0);
 
         float camY = Input.GetAxisRaw("Mouse Y") * rotateSpeed;
         if (invertY){
@@ -35,6 +35,12 @@ public class CameraController : MonoBehaviour
         } else {
             pivot.Rotate(-camY, 0, 0);
         }
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+        	player.Rotate(0, camX, 0);
+        	pivot.Rotate(0, 0, 0);
+    	}
 
         if(pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f)
         {
@@ -47,18 +53,18 @@ public class CameraController : MonoBehaviour
         }
 
         float camZ = Input.GetAxisRaw("Mouse ScrollWheel");
-
+        float angleY = pivot.eulerAngles.y;
         float angleX = pivot.eulerAngles.x;
-        float angleY = player.eulerAngles.y;
-        float cameraAngle = transform.eulerAngles.y;
+
+        if(Input.GetKey(KeyCode.LeftShift))
+        {
+        	angleY = player.eulerAngles.y;
+    	} 
+
+    	float cameraAngle = transform.eulerAngles.y;
 
         Quaternion rotation = Quaternion.Euler(angleX, angleY, 0);
-
-        if(!Input.GetKey(KeyCode.LeftShift)){
-        	transform.position = player.position - (rotation * offset);
-        } else {
-        	transform.position = player.position - offset;
-        }
+        transform.position = player.position - (rotation * offset);
 
         if(transform.position.y < player.position.y){
             transform.position = new Vector3(transform.position.x, player.position.y - 0.5f, transform.position.z);
