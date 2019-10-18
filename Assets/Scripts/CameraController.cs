@@ -59,6 +59,7 @@ public class CameraController : MonoBehaviour
         if(Input.GetKey(KeyCode.LeftShift))
         {
         	angleY = player.eulerAngles.y;
+        	angleX = player.eulerAngles.x;
     	} 
 
     	float cameraAngle = transform.eulerAngles.y;
