@@ -11,10 +11,12 @@ public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
 
-    public float speed = 20.0f;
-    public float jumpSpeed = 15.0f;
-    public float gravity = 5.0f;
-    public float rotationSpeed = 150.0f;
+    public float speed;
+    public float jumpSpeed;
+    public float gravity;
+    public float rotationSpeed;
+    public Transform pivot;
+    public GameObject playerModel;
 
     private bool extraJump = true;
     private Vector3 moveDirection;
@@ -29,9 +31,6 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
-
-        //Player rotation
-        transform.Rotate(0, Input.GetAxis("Horizontal") * Time.deltaTime * rotationSpeed, 0);
 
         if (extraJump == true)
         {
@@ -73,5 +72,14 @@ public class PlayerController : MonoBehaviour
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
+
+        //Move the player in different directions based on camera look direction
+        if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+        }
+
     }
 }
