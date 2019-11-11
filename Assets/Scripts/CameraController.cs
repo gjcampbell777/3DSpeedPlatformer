@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
         }
 
         pivot.position = player.position;
-        pivot.parent = player.transform;
+        pivot.parent = null;
 
         Cursor.visible = !Cursor.visible;
         Cursor.lockState = CursorLockMode.Locked;
@@ -56,11 +56,12 @@ public class CameraController : MonoBehaviour
         float angleY = pivot.eulerAngles.y;
         float angleX = pivot.eulerAngles.x;
 
+        /* Code to force the camera behind the player
         if(Input.GetKey(KeyCode.LeftShift))
         {
         	angleY = player.eulerAngles.y;
         	angleX = player.eulerAngles.x;
-    	} 
+    	} */
 
     	float cameraAngle = transform.eulerAngles.y;
 
