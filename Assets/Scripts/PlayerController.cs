@@ -30,7 +30,8 @@ public class PlayerController : MonoBehaviour
     {
 
         float yStore = moveDirection.y;
-        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
+        //Need to switch to 'raw' when using keyboard
+        moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
 
         if (extraJump == true)
         {
@@ -74,7 +75,8 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveDirection * Time.deltaTime);
 
         //Move the player in different directions based on camera look direction
-        if(Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        //Need to switch to 'raw' when using keyboard
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
