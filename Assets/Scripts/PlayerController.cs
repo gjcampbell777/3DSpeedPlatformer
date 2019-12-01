@@ -9,7 +9,7 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
-    CharacterController characterController;
+    Rigidbody rb;
 
     public float speed;
     public float jumpSpeed;
@@ -19,14 +19,19 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private bool extraJump = true;
+    private float distToGround;
     private Vector3 moveDirection;
 
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    bool IsGrounded(){
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+    }
+
+    void FixedUpdate()
     {
 
         float yStore = moveDirection.y;
@@ -43,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
         moveDirection.y = yStore;
 
-        if (characterController.isGrounded)
+        if (IsGrounded())
         {
             extraJump = true;
             moveDirection.y = 0.0f;
@@ -72,7 +77,7 @@ public class PlayerController : MonoBehaviour
         moveDirection.y = moveDirection.y + (Physics.gravity.y * gravity * Time.deltaTime);
 
         // Move the controller
-        characterController.Move(moveDirection * Time.deltaTime);
+        rb.AddForce(moveDirection * Time.deltaTime);
 
         //Move the player in different directions based on camera look direction
         //Need to switch to 'raw' when using keyboard
