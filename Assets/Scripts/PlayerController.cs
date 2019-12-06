@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private float transformHeight;
     private Vector3 moveDirection;
 
+    float startTime = 0.0f;
+    float oneSec = 1.0f;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -44,8 +47,7 @@ public class PlayerController : MonoBehaviour
         if (jump <= 1)
         {
             moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-        } else
-        {
+        } else {
             moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
         }
 
@@ -65,10 +67,19 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetKey(KeyCode.LeftControl))
             {
-                moveDirection = (moveDirection.normalized * speed/4);
+                if(Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    startTime = Time.time;
+                }
+
+                moveDirection = (moveDirection.normalized * speed * 2);
                 characterController.height /= 2;
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+                if (startTime + oneSec <= Time.time)
+                {
+                    moveDirection = (moveDirection.normalized * speed/4);
+                }
             } else {
                 moveDirection = moveDirection.normalized * speed;
                 characterController.height = controllerHeight;
