@@ -10,6 +10,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
+    CapsuleCollider capsule;
 
     public float speed;
     public float jumpHeight;
@@ -19,11 +20,18 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private int jump = 0;
+    private float capsuleHeight;
+    private float controllerHeight;
+    private float transformHeight;
     private Vector3 moveDirection;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        capsule = GetComponent<CapsuleCollider>();
+        transformHeight = transform.localScale.y;
+        controllerHeight = characterController.height;
+        capsuleHeight = capsule.height;
     }
 
     void Update()
@@ -53,6 +61,19 @@ public class PlayerController : MonoBehaviour
                 moveDirection = (moveDirection.normalized * speed/2);
             } else {
                 moveDirection = moveDirection.normalized * speed;
+            }
+
+            if(Input.GetKey(KeyCode.LeftControl))
+            {
+                moveDirection = (moveDirection.normalized * speed/4);
+                characterController.height /= 2;
+                capsule.height /= 2;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+            } else {
+                moveDirection = moveDirection.normalized * speed;
+                characterController.height = controllerHeight;
+                capsule.height = capsuleHeight;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
 
         } 
