@@ -12,13 +12,13 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
 
     public float speed;
-    public float jumpSpeed;
+    public float jumpHeight;
     public float gravity;
     public float rotationSpeed;
     public Transform pivot;
     public GameObject playerModel;
 
-    private bool extraJump = true;
+    private int jump = 0;
     private Vector3 moveDirection;
 
     void Start()
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         //Need to switch to 'raw' when using keyboard
         moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
 
-        if (extraJump == true)
+        if (jump <= 1)
         {
             moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
         } else
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            extraJump = true;
+            jump = 0;
             moveDirection.y = 0.0f;
 
             if(Input.GetKey(KeyCode.LeftShift))
@@ -55,21 +55,15 @@ public class PlayerController : MonoBehaviour
                 moveDirection = moveDirection.normalized * speed;
             }
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                moveDirection.y = jumpSpeed;
-            }
+        } 
 
-        } else {
-            if (Input.GetButtonDown("Jump") && extraJump == true)
-            {
-                moveDirection.y = jumpSpeed;
-                extraJump = false;
-            }
-
+        if (Input.GetButtonDown("Jump") && jump <= 1)
+        {
+            moveDirection.y = jumpHeight;
+            jump++;
         }
 
-        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravity * Time.deltaTime);
+        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
