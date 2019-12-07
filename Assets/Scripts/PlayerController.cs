@@ -10,30 +10,44 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
+    CapsuleCollider capsule;
 
-    public float speed = 20.0f;
-    public float jumpSpeed = 15.0f;
-    public float gravity = 5.0f;
+    public float speed;
+    public float jumpHeight;
+    public float gravity;
+    public float rotationSpeed;
+    public Transform pivot;
+    public GameObject playerModel;
 
-    private bool extraJump = true;
+    private int jump = 0;
+    private float capsuleHeight;
+    private float controllerHeight;
+    private float transformHeight;
     private Vector3 moveDirection;
+
+    float startTime = 0.0f;
+    float oneSec = 1.0f;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        capsule = GetComponent<CapsuleCollider>();
+        transformHeight = transform.localScale.y;
+        controllerHeight = characterController.height;
+        capsuleHeight = capsule.height;
     }
 
     void Update()
     {
 
         float yStore = moveDirection.y;
-        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
+        //Need to switch to 'raw' when using keyboard
+        moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
 
-        if (extraJump == true)
+        if (jump <= 1)
         {
             moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-        } else
-        {
+        } else {
             moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
         }
 
@@ -41,7 +55,7 @@ public class PlayerController : MonoBehaviour
 
         if (characterController.isGrounded)
         {
-            extraJump = true;
+            jump = 0;
             moveDirection.y = 0.0f;
 
             if(Input.GetKey(KeyCode.LeftShift))
@@ -51,23 +65,57 @@ public class PlayerController : MonoBehaviour
                 moveDirection = moveDirection.normalized * speed;
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if(Input.GetKey(KeyCode.LeftControl))
             {
-                moveDirection.y = jumpSpeed;
+
+                characterController.height /= 2;
+                capsule.height /= 2;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+
+                if(Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    startTime = Time.time;
+                }
+
+                if(characterController.velocity != new Vector3(0, 0, 0) && startTime + oneSec >= Time.time)
+                {
+                
+                    moveDirection = (moveDirection.normalized * speed * 2);
+
+                } else {
+                
+                    moveDirection = (moveDirection.normalized * speed/4);
+                
+                }
+
+            } else {
+                moveDirection = moveDirection.normalized * speed;
+                characterController.height = controllerHeight;
+                capsule.height = capsuleHeight;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
 
-        } else {
-            if (Input.GetButtonDown("Jump") && extraJump == true)
-            {
-                moveDirection.y = jumpSpeed;
-                extraJump = false;
-            }
+        } 
 
+        if (Input.GetButtonDown("Jump") && jump <= 1)
+        {
+            moveDirection.y = jumpHeight;
+            jump++;
         }
 
-        moveDirection.y = moveDirection.y + (Physics.gravity.y * gravity * Time.deltaTime);
+        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
 
         // Move the controller
         characterController.Move(moveDirection * Time.deltaTime);
+
+        //Move the player in different directions based on camera look direction
+        //Need to switch to 'raw' when using keyboard
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+        }
+
     }
 }
