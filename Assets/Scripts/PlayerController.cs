@@ -10,6 +10,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour
 {
     CharacterController characterController;
+    CapsuleCollider capsule;
 
     public float speed;
     public float jumpHeight;
@@ -19,11 +20,21 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private int jump = 0;
+    private float capsuleHeight;
+    private float controllerHeight;
+    private float transformHeight;
     private Vector3 moveDirection;
+
+    float startTime = 0.0f;
+    float oneSec = 1.0f;
 
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        capsule = GetComponent<CapsuleCollider>();
+        transformHeight = transform.localScale.y;
+        controllerHeight = characterController.height;
+        capsuleHeight = capsule.height;
     }
 
     void Update()
@@ -36,8 +47,7 @@ public class PlayerController : MonoBehaviour
         if (jump <= 1)
         {
             moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-        } else
-        {
+        } else {
             moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
         }
 
@@ -53,6 +63,36 @@ public class PlayerController : MonoBehaviour
                 moveDirection = (moveDirection.normalized * speed/2);
             } else {
                 moveDirection = moveDirection.normalized * speed;
+            }
+
+            if(Input.GetKey(KeyCode.LeftControl))
+            {
+
+                characterController.height /= 2;
+                capsule.height /= 2;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+
+                if(Input.GetKeyDown(KeyCode.LeftControl))
+                {
+                    startTime = Time.time;
+                }
+
+                if(characterController.velocity != new Vector3(0, 0, 0) && startTime + oneSec >= Time.time)
+                {
+                
+                    moveDirection = (moveDirection.normalized * speed * 2);
+
+                } else {
+                
+                    moveDirection = (moveDirection.normalized * speed/4);
+                
+                }
+
+            } else {
+                moveDirection = moveDirection.normalized * speed;
+                characterController.height = controllerHeight;
+                capsule.height = capsuleHeight;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
 
         } 
