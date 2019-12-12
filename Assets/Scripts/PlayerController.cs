@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         //Need to switch to 'raw' when using keyboard
-        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
+        moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
 
         if (jump <= 1)
         {
