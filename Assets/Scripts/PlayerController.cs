@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         //Need to switch to 'raw' when using keyboard
-        moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
+        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
 
         if (jump <= 1)
         {
@@ -72,12 +72,12 @@ public class PlayerController : MonoBehaviour
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetKeyDown(KeyCode.LeftControl))
+                if(Input.GetKeyDown(KeyCode.LeftControl) && characterController.velocity != new Vector3(0, 0, 0))
                 {
                     startTime = Time.time;
                 }
 
-                if(characterController.velocity != new Vector3(0, 0, 0) && startTime + oneSec >= Time.time)
+                if(startTime + oneSec >= Time.time)
                 {
                 
                     moveDirection = (moveDirection.normalized * speed * 2);
