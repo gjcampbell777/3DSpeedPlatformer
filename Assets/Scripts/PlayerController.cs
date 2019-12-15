@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private int jump = 0;
+    private float maxSpeedStore;
     private float capsuleHeight;
     private float controllerHeight;
     private float transformHeight;
@@ -41,27 +42,31 @@ public class PlayerController : MonoBehaviour
         transformHeight = transform.localScale.y;
         controllerHeight = characterController.height;
         capsuleHeight = capsule.height;
+        maxSpeedStore = maxSpeed;
     }
 
     void Update()
     {
 
         float yStore = moveDirection.y;
+        maxSpeed = maxSpeedStore;
         //Need to switch to 'raw' when using keyboard
         //moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
 
+        velocity.x += moveDirection.x * acceleration; 
+        velocity.z += moveDirection.z * acceleration;
+
         if (jump <= 1)
         {
             //moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-            velocity.x += moveDirection.x * acceleration; 
-            velocity.z += moveDirection.z * acceleration;
+            maxSpeed = maxSpeedStore;
+
         } else {
             //moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
-            velocity.x += (moveDirection.x * acceleration)/4; 
-            velocity.z += (moveDirection.z * acceleration)/4;
+            maxSpeed = maxSpeedStore/4;
         }
 
         moveDirection.y = yStore;
@@ -74,12 +79,10 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 //moveDirection = (moveDirection.normalized * speed/2);
-                velocity.x += (moveDirection.x * acceleration)/2; 
-                velocity.z += (moveDirection.x * acceleration)/2;
+                maxSpeed = maxSpeedStore/2;
             } else {
                 //moveDirection = moveDirection.normalized * speed;
-                velocity.x += moveDirection.x * acceleration; 
-                velocity.z += moveDirection.z * acceleration;
+                maxSpeed = maxSpeedStore;
             }
 
             if(Input.GetKey(KeyCode.LeftControl))
@@ -98,14 +101,12 @@ public class PlayerController : MonoBehaviour
                 {
                 
                     //moveDirection = (moveDirection.normalized * speed * 2);
-                    velocity.x += (moveDirection.x * acceleration)*2; 
-                    velocity.z += (moveDirection.z * acceleration)*2;
+                    maxSpeed = maxSpeedStore*2;
                 
                 } else {
                 
                     //moveDirection = (moveDirection.normalized * speed/4);
-                    velocity.x += (moveDirection.z * acceleration)/4; 
-                    velocity.z += (moveDirection.z * acceleration)/4;
+                    maxSpeed = maxSpeedStore/4;
 
                 }
 
