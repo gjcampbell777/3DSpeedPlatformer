@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     CapsuleCollider capsule;
 
     public float speed;
+    public float maxSpeed;
+    public float acceleration;
+    public float friction;
     public float jumpHeight;
     public float gravity;
     public float rotationSpeed;
@@ -23,7 +26,10 @@ public class PlayerController : MonoBehaviour
     private float capsuleHeight;
     private float controllerHeight;
     private float transformHeight;
+    private float xVelocity = 0.0f;
+    private float zVelocity = 0.0f;
     private Vector3 moveDirection;
+    private Vector3 velocity;
 
     float startTime = 0.0f;
     float oneSec = 1.0f;
@@ -42,13 +48,20 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         //Need to switch to 'raw' when using keyboard
-        moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
+        //moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
+        moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
 
         if (jump <= 1)
         {
-            moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
+            //moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
+            velocity.x += moveDirection.x * acceleration; 
+            velocity.z += moveDirection.z * acceleration;
         } else {
-            moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
+            //moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
+            velocity.x += (moveDirection.x * acceleration)/4; 
+            velocity.z += (moveDirection.z * acceleration)/4;
         }
 
         moveDirection.y = yStore;
@@ -60,9 +73,13 @@ public class PlayerController : MonoBehaviour
 
             if(Input.GetKey(KeyCode.LeftShift))
             {
-                moveDirection = (moveDirection.normalized * speed/2);
+                //moveDirection = (moveDirection.normalized * speed/2);
+                velocity.x += (moveDirection.x * acceleration)/2; 
+                velocity.z += (moveDirection.x * acceleration)/2;
             } else {
-                moveDirection = moveDirection.normalized * speed;
+                //moveDirection = moveDirection.normalized * speed;
+                velocity.x += moveDirection.x * acceleration; 
+                velocity.z += moveDirection.z * acceleration;
             }
 
             if(Input.GetKey(KeyCode.LeftControl))
@@ -80,12 +97,16 @@ public class PlayerController : MonoBehaviour
                 if(startTime + oneSec >= Time.time)
                 {
                 
-                    moveDirection = (moveDirection.normalized * speed * 2);
-
+                    //moveDirection = (moveDirection.normalized * speed * 2);
+                    velocity.x += (moveDirection.x * acceleration)*2; 
+                    velocity.z += (moveDirection.z * acceleration)*2;
+                
                 } else {
                 
-                    moveDirection = (moveDirection.normalized * speed/4);
-                
+                    //moveDirection = (moveDirection.normalized * speed/4);
+                    velocity.x += (moveDirection.z * acceleration)/4; 
+                    velocity.z += (moveDirection.z * acceleration)/4;
+
                 }
 
             } else {
@@ -95,7 +116,15 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
 
-        } 
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
+                velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+
+        } else {
+
+                velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction*3);
+                velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction*3);
+
+        }
 
         if (Input.GetButtonDown("Jump") && jump <= 1)
         {
@@ -104,9 +133,12 @@ public class PlayerController : MonoBehaviour
         }
 
         moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
+        velocity.y = moveDirection.y;
+
+        velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
         // Move the controller
-        characterController.Move(moveDirection * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);
 
         //Move the player in different directions based on camera look direction
         //Need to switch to 'raw' when using keyboard

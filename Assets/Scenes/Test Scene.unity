@@ -1284,7 +1284,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83127dd120c01de45954b99cc4d669a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 10
+  maxSpeed: 25
+  acceleration: 5
+  friction: 0.1
   jumpHeight: 20
   gravity: 5
   rotationSpeed: 20
