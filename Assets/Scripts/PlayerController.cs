@@ -45,6 +45,16 @@ public class PlayerController : MonoBehaviour
         maxSpeedStore = maxSpeed;
     }
 
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+
+        if(hit.gameObject.tag == "Wall")
+        {
+            gravity = 0.5f;
+        }
+
+    }
+
     void Update()
     {
 
@@ -131,6 +141,11 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection.y = jumpHeight;
             jump++;
+        }
+
+        if (characterController.collisionFlags == CollisionFlags.None)
+        {
+            gravity = 5;
         }
 
         moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
