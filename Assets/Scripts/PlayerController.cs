@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
         } else {
             //moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
-            maxSpeed = maxSpeedStore/4;
+            maxSpeed = maxSpeedStore/2;
         }
 
         moveDirection.y = yStore;
@@ -92,10 +92,11 @@ public class PlayerController : MonoBehaviour
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetKeyDown(KeyCode.LeftControl) && characterController.velocity != new Vector3(0, 0, 0))
+                if(Input.GetKeyDown(KeyCode.LeftControl) && characterController.velocity != new Vector3(0, 0, 0)
+                    && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
                 {
                     startTime = Time.time;
-                }
+                } 
 
                 if(startTime + oneSec >= Time.time)
                 {
@@ -117,13 +118,12 @@ public class PlayerController : MonoBehaviour
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
 
-                velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
-                velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+        }
 
-        } else {
+        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
 
-                velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction*3);
-                velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction*3);
+            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
+            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
         }
 
@@ -134,15 +134,15 @@ public class PlayerController : MonoBehaviour
         }
 
         moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
-        velocity.y = moveDirection.y;
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+        velocity.y = moveDirection.y;
 
         // Move the controller
         characterController.Move(velocity * Time.deltaTime);
 
         //Move the player in different directions based on camera look direction
-        //Need to switch to 'raw' when using keyboard
         if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
         {
             transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
