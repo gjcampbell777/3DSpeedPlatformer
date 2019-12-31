@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
     public Transform pivot;
     public GameObject playerModel;
 
+    private bool wallRunning = false;
     private int jump = 0;
+    private int wall = 0;
     private float maxSpeedStore;
     private float capsuleHeight;
     private float controllerHeight;
@@ -50,9 +52,10 @@ public class PlayerController : MonoBehaviour
 
         if(hit.gameObject.tag == "Wall")
         {
-            gravity = 0.5f;
+            wallRunning = true;
+            wall++;
         }
-
+        
     }
 
     void Update()
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour
         if (jump <= 1)
         {
             //moveDirection = moveDirection.normalized * speed; //Remove this line to make running diagonal the fastest standard run
-            maxSpeed = maxSpeedStore;
+            //maxSpeed = maxSpeedStore;
 
         } else {
             //moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
@@ -145,10 +148,33 @@ public class PlayerController : MonoBehaviour
 
         if (characterController.collisionFlags == CollisionFlags.None)
         {
-            gravity = 5;
+            wallRunning = false;
+            wall = 0;
         }
 
         moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
+
+        if (wallRunning)
+        {
+            maxSpeed = maxSpeedStore*1.5f;
+            jump = 0;
+
+            if(wall == 1)
+            {
+                startTime = Time.time;
+            }
+
+            if(startTime + oneSec < Time.time)
+            {
+                
+                moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
+                //wallRunning = false;
+                maxSpeed = maxSpeedStore;
+                
+            } else {
+                moveDirection.y = 0.0f;
+            }
+        } 
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
