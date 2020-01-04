@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     CapsuleCollider capsule;
 
-    public float speed;
     public float maxSpeed;
     public float acceleration;
     public float friction;
@@ -69,11 +68,11 @@ public class PlayerController : MonoBehaviour
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
 
-        if (jump > 2)
+        if (jump >= 2)
         {
-            if(maxSpeed > maxSpeedStore/3)
+            if(maxSpeed > maxSpeedStore/1.75f)
             {
-                maxSpeed -= acceleration*3;
+                maxSpeed -= acceleration;
             }
         }
 
@@ -84,19 +83,21 @@ public class PlayerController : MonoBehaviour
             jump = 0;
             moveDirection.y = 0.0f;
 
+            if(maxSpeed > maxSpeedStore)
+            {
+                maxSpeed -= acceleration/10;
+            }
+
+            if(maxSpeed < maxSpeedStore && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
+            {
+                maxSpeed += acceleration;
+            }
+
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 if(maxSpeed > maxSpeedStore/2)
                 {
                     maxSpeed -= acceleration;
-                }
-            } 
-
-            if(Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftControl))
-            {
-                while(maxSpeed < maxSpeedStore)
-                {
-                    maxSpeed += acceleration;
                 }
             }
 
@@ -118,7 +119,7 @@ public class PlayerController : MonoBehaviour
                 
                     if(maxSpeed < maxSpeedStore*2)
                     {
-                        maxSpeed += acceleration;
+                        maxSpeed += acceleration*2;
                     }
                 
                 } else {
@@ -132,7 +133,6 @@ public class PlayerController : MonoBehaviour
 
             } else {
 
-                //maxSpeed = maxSpeedStore;
                 characterController.height = controllerHeight;
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
