@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private int jump = 0;
     private int wall = 0;
     private float maxSpeedStore;
+    private float accelerationStore;
     private float capsuleHeight;
     private float controllerHeight;
     private float transformHeight;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         controllerHeight = characterController.height;
         capsuleHeight = capsule.height;
         maxSpeedStore = maxSpeed;
+        accelerationStore = acceleration;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -63,14 +65,12 @@ public class PlayerController : MonoBehaviour
 
         float yStore = moveDirection.y;
         maxSpeed = maxSpeedStore;
+        acceleration = accelerationStore;
         //Need to switch to 'raw' when using keyboard
         //moveDirection = (transform.forward * Input.GetAxis("Vertical")) + (transform.right * Input.GetAxis("Horizontal"));
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
-
-        velocity.x += moveDirection.x * acceleration; 
-        velocity.z += moveDirection.z * acceleration;
 
         if (jump <= 1)
         {
@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
 
         } else {
             //moveDirection = (moveDirection.normalized * speed)/4; //Remove this line to make running diagonal the fastest standard run
-            maxSpeed = maxSpeedStore/2;
+            //maxSpeed = maxSpeedStore/1.75f;
+            acceleration = acceleration/2;
         }
 
         moveDirection.y = yStore;
@@ -92,10 +93,12 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKey(KeyCode.LeftShift))
             {
                 //moveDirection = (moveDirection.normalized * speed/2);
-                maxSpeed = maxSpeedStore/2;
+                //maxSpeed = maxSpeedStore/2;
+                acceleration = acceleration/2;
             } else {
                 //moveDirection = moveDirection.normalized * speed;
-                maxSpeed = maxSpeedStore;
+                //maxSpeed = maxSpeedStore;
+                acceleration = accelerationStore;
             }
 
             if(Input.GetKey(KeyCode.LeftControl))
@@ -115,28 +118,24 @@ public class PlayerController : MonoBehaviour
                 {
                 
                     //moveDirection = (moveDirection.normalized * speed * 2);
-                    maxSpeed = maxSpeedStore*2;
+                    //maxSpeed = maxSpeedStore*2;
+                    acceleration = acceleration*2;
                 
                 } else {
                 
                     //moveDirection = (moveDirection.normalized * speed/4);
-                    maxSpeed = maxSpeedStore/4;
+                    //maxSpeed = maxSpeedStore/4;
+                    acceleration = acceleration/4;
 
                 }
 
             } else {
-                moveDirection = moveDirection.normalized * speed;
+                //moveDirection = moveDirection.normalized * speed;
+                moveDirection = moveDirection.normalized;
                 characterController.height = controllerHeight;
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             }
-
-        }
-
-        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
-
-            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
-            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
         }
 
@@ -156,7 +155,8 @@ public class PlayerController : MonoBehaviour
 
         if (wallRunning)
         {
-            maxSpeed = maxSpeedStore*1.5f;
+            //maxSpeed = maxSpeedStore*1.5f;
+            acceleration = acceleration*1.5f;
             jump = 0;
 
             if(wall == 1)
@@ -169,12 +169,35 @@ public class PlayerController : MonoBehaviour
                 
                 moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
                 //wallRunning = false;
-                maxSpeed = maxSpeedStore;
+                //maxSpeed = maxSpeedStore;
                 
             } else {
                 moveDirection.y = 0.0f;
             }
-        } 
+        }
+
+        velocity.x += moveDirection.x * acceleration; 
+        velocity.z += moveDirection.z * acceleration;
+
+        //if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
+
+            //Remove or lower friction to add an 'ice' effect
+            //velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
+            //velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+
+        //} 
+
+        if(velocity.x > 0.0f){
+            velocity.x -= 0.5f;
+        } else if(velocity.x < 0.0f){
+            velocity.x += 0.5f;
+        }
+
+        if(velocity.z > 0.0f){
+            velocity.z -= 0.5f;
+        } else if(velocity.z < 0.0f){
+            velocity.z += 0.5f;
+        }
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
