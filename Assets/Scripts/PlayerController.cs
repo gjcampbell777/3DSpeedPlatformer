@@ -23,8 +23,10 @@ public class PlayerController : MonoBehaviour
 
     private bool wallRunning = false;
     private bool diving = false;
+    private bool sliding = false;
     private int jump = 0;
     private int wall = 0;
+    private int dive = 0;
     private float maxSpeedStore;
     private float maxSpeedCap = 100;
     private float accelerationStore;
@@ -37,7 +39,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private Vector3 gravityVelocity;
 
-    float startTime = 0.0f;
+    float slideTime = 0.0f;
+    float wallRunTime = 0.0f;
     float oneSec = 1.0f;
     float halfSec = 0.5f;
     float quarterSec = 0.25f;
@@ -84,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (characterController.isGrounded)
         {
             diving = false;
-            wallRunning = false;
+            dive = 0;
             jump = 0;
             moveDirection.y = 0.0f;
 
@@ -113,13 +116,18 @@ public class PlayerController : MonoBehaviour
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetKeyDown(KeyCode.LeftControl) && characterController.velocity != new Vector3(0, 0, 0)
-                    && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+                if(Input.GetKeyDown(KeyCode.LeftControl))
                 {
-                    startTime = Time.time;
+                    if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+                    {
+                        sliding = false;
+                    } else {
+                        sliding = true;
+                        slideTime = Time.time;
+                    }
                 } 
 
-                if(startTime + halfSec >= Time.time)
+                if(slideTime + halfSec >= Time.time && sliding == true)
                 {
                 
                     if(maxSpeed < maxSpeedStore*2)
@@ -127,7 +135,7 @@ public class PlayerController : MonoBehaviour
                         maxSpeed += acceleration*2;
                     }
 
-                    if(Input.GetButton("Jump") && startTime + quarterSec >= Time.time)
+                    if(Input.GetButton("Jump") && slideTime + quarterSec >= Time.time)
                     {
                         maxSpeed += 5;
                     }
@@ -150,7 +158,7 @@ public class PlayerController : MonoBehaviour
             }
 
         } else {
-            startTime = Time.time;
+            slideTime = Time.time;
 
             if(Input.GetKey(KeyCode.LeftControl))
             {
@@ -165,6 +173,16 @@ public class PlayerController : MonoBehaviour
                 characterController.height = controllerHeight;
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
+
+            }
+
+            //Might want to change move direction value to make triggering this speed up effect easier/harder 
+            if(diving && moveDirection.y > 0.75 && Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                dive++;
+                if(dive == 1){
+                    maxSpeed += 10;
+                }
 
             }
 
@@ -196,10 +214,10 @@ public class PlayerController : MonoBehaviour
 
             if(wall == 1)
             {
-                startTime = Time.time;
+                wallRunTime = Time.time;
             }
 
-            if(startTime + oneSec < Time.time)
+            if(wallRunTime + oneSec < Time.time)
             {
                 
                 moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
@@ -240,12 +258,6 @@ public class PlayerController : MonoBehaviour
         {
             velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
             velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
-        }
-
-        if(diving)
-        {
-            velocity.x *= 1.5f; 
-            velocity.z *= 1.5f;
         }
 
         // Move the controller
