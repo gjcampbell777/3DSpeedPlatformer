@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private bool wallRunning = false;
+    private bool diving = false;
     private int jump = 0;
     private int wall = 0;
     private float maxSpeedStore;
@@ -34,9 +35,12 @@ public class PlayerController : MonoBehaviour
     private float zVelocity = 0.0f;
     private Vector3 moveDirection;
     private Vector3 velocity;
+    private Vector3 gravityVelocity;
 
     float startTime = 0.0f;
     float oneSec = 1.0f;
+    float halfSec = 0.5f;
+    float quarterSec = 0.25f;
 
     void Start()
     {
@@ -67,19 +71,20 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
+        moveDirection.y = yStore;
 
         if (jump >= 2)
         {
-            if(maxSpeed > maxSpeedStore/1.75f)
+            if(maxSpeed > maxSpeedStore/1.5f)
             {
                 maxSpeed -= acceleration;
             }
         }
 
-        moveDirection.y = yStore;
-
         if (characterController.isGrounded)
         {
+            diving = false;
+            wallRunning = false;
             jump = 0;
             moveDirection.y = 0.0f;
 
@@ -114,12 +119,17 @@ public class PlayerController : MonoBehaviour
                     startTime = Time.time;
                 } 
 
-                if(startTime + oneSec >= Time.time)
+                if(startTime + halfSec >= Time.time)
                 {
                 
                     if(maxSpeed < maxSpeedStore*2)
                     {
                         maxSpeed += acceleration*2;
+                    }
+
+                    if(Input.GetButton("Jump") && startTime + quarterSec >= Time.time)
+                    {
+                        maxSpeed += 5;
                     }
                 
                 } else {
@@ -137,6 +147,25 @@ public class PlayerController : MonoBehaviour
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             
+            }
+
+        } else {
+            startTime = Time.time;
+
+            if(Input.GetKey(KeyCode.LeftControl))
+            {
+
+                characterController.height /= 2;
+                capsule.height /= 2;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+                diving = true;
+
+            } else {
+
+                characterController.height = controllerHeight;
+                capsule.height = capsuleHeight;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
+
             }
 
         }
@@ -189,7 +218,7 @@ public class PlayerController : MonoBehaviour
             velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
             velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
-        } 
+        }
 
         if(maxSpeed > maxSpeedCap)
         {
@@ -204,6 +233,20 @@ public class PlayerController : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
         velocity.y = moveDirection.y;
+
+        Debug.Log(moveDirection.y+"\n");
+
+        if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f)
+        {
+            velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
+            velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
+        }
+
+        if(diving)
+        {
+            velocity.x *= 1.5f; 
+            velocity.z *= 1.5f;
+        }
 
         // Move the controller
         characterController.Move(velocity * Time.deltaTime);
