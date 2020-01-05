@@ -22,8 +22,11 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
 
     private bool wallRunning = false;
+    private bool diving = false;
+    private bool sliding = false;
     private int jump = 0;
     private int wall = 0;
+    private int dive = 0;
     private float maxSpeedStore;
     private float maxSpeedCap = 100;
     private float accelerationStore;
@@ -34,9 +37,13 @@ public class PlayerController : MonoBehaviour
     private float zVelocity = 0.0f;
     private Vector3 moveDirection;
     private Vector3 velocity;
+    private Vector3 gravityVelocity;
 
-    float startTime = 0.0f;
+    float slideTime = 0.0f;
+    float wallRunTime = 0.0f;
     float oneSec = 1.0f;
+    float halfSec = 0.5f;
+    float quarterSec = 0.25f;
 
     void Start()
     {
@@ -67,19 +74,20 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
+        moveDirection.y = yStore;
 
         if (jump >= 2)
         {
-            if(maxSpeed > maxSpeedStore/1.75f)
+            if(maxSpeed > maxSpeedStore/1.5f)
             {
                 maxSpeed -= acceleration;
             }
         }
 
-        moveDirection.y = yStore;
-
         if (characterController.isGrounded)
         {
+            diving = false;
+            dive = 0;
             jump = 0;
             moveDirection.y = 0.0f;
 
@@ -108,18 +116,28 @@ public class PlayerController : MonoBehaviour
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetKeyDown(KeyCode.LeftControl) && characterController.velocity != new Vector3(0, 0, 0)
-                    && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+                if(Input.GetKeyDown(KeyCode.LeftControl))
                 {
-                    startTime = Time.time;
+                    if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+                    {
+                        sliding = false;
+                    } else {
+                        sliding = true;
+                        slideTime = Time.time;
+                    }
                 } 
 
-                if(startTime + oneSec >= Time.time)
+                if(slideTime + halfSec >= Time.time && sliding == true)
                 {
                 
                     if(maxSpeed < maxSpeedStore*2)
                     {
                         maxSpeed += acceleration*2;
+                    }
+
+                    if(Input.GetButton("Jump") && slideTime + quarterSec >= Time.time)
+                    {
+                        maxSpeed += 5;
                     }
                 
                 } else {
@@ -137,6 +155,35 @@ public class PlayerController : MonoBehaviour
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
             
+            }
+
+        } else {
+            slideTime = Time.time;
+
+            if(Input.GetKey(KeyCode.LeftControl))
+            {
+
+                characterController.height /= 2;
+                capsule.height /= 2;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
+                diving = true;
+
+            } else {
+
+                characterController.height = controllerHeight;
+                capsule.height = capsuleHeight;
+                transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
+
+            }
+
+            //Might want to change move direction value to make triggering this speed up effect easier/harder 
+            if(diving && moveDirection.y > 0.75 && Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                dive++;
+                if(dive == 1){
+                    maxSpeed += 10;
+                }
+
             }
 
         }
@@ -167,10 +214,10 @@ public class PlayerController : MonoBehaviour
 
             if(wall == 1)
             {
-                startTime = Time.time;
+                wallRunTime = Time.time;
             }
 
-            if(startTime + oneSec < Time.time)
+            if(wallRunTime + oneSec < Time.time)
             {
                 
                 moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
@@ -189,7 +236,7 @@ public class PlayerController : MonoBehaviour
             velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
             velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
-        } 
+        }
 
         if(maxSpeed > maxSpeedCap)
         {
@@ -204,6 +251,14 @@ public class PlayerController : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
 
         velocity.y = moveDirection.y;
+
+        Debug.Log(moveDirection.y+"\n");
+
+        if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f)
+        {
+            velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
+            velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
+        }
 
         // Move the controller
         characterController.Move(velocity * Time.deltaTime);
