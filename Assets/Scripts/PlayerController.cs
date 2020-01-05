@@ -93,15 +93,15 @@ public class PlayerController : MonoBehaviour
 
             if(maxSpeed > maxSpeedStore)
             {
-                maxSpeed -= acceleration/10;
+                maxSpeed -= acceleration/5;
             }
 
-            if(maxSpeed < maxSpeedStore && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.LeftControl))
+            if(maxSpeed < maxSpeedStore && !Input.GetButton("Walk") && !Input.GetButton("Crouch"))
             {
                 maxSpeed += acceleration;
             }
 
-            if(Input.GetKey(KeyCode.LeftShift))
+            if(Input.GetButton("Walk"))
             {
                 if(maxSpeed > maxSpeedStore/2)
                 {
@@ -109,21 +109,21 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(Input.GetKey(KeyCode.LeftControl))
+            if(Input.GetButton("Crouch"))
             {
 
                 characterController.height /= 2;
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetKeyDown(KeyCode.LeftControl))
+                if(Input.GetButtonDown("Crouch"))
                 {
-                    if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0))
+                    if((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
                     {
-                        sliding = false;
-                    } else {
                         sliding = true;
                         slideTime = Time.time;
+                    } else {
+                        sliding = false;   
                     }
                 } 
 
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
         } else {
             slideTime = Time.time;
 
-            if(Input.GetKey(KeyCode.LeftControl))
+            if(Input.GetButton("Crouch"))
             {
 
                 characterController.height /= 2;
@@ -177,13 +177,14 @@ public class PlayerController : MonoBehaviour
             }
 
             //Might want to change move direction value to make triggering this speed up effect easier/harder 
-            if(diving && moveDirection.y > 0.75 && Input.GetKeyDown(KeyCode.LeftControl))
+            if(diving && moveDirection.y > 0.75 && Input.GetButtonDown("Crouch"))
             {
                 dive++;
                 if(dive == 1){
                     maxSpeed += 10;
                 }
-
+                sliding = true;
+                slideTime = Time.time;
             }
 
         }
@@ -230,7 +231,7 @@ public class PlayerController : MonoBehaviour
         velocity.x += moveDirection.x; 
         velocity.z += moveDirection.z;
 
-        if(Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0){
+        if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || Input.GetButton("Stop")){
 
             //Remove or "lower" friction to add an 'ice' effect
             velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
