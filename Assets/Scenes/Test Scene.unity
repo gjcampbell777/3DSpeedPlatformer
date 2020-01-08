@@ -1265,7 +1265,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 741217452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 615882419}
@@ -1498,14 +1498,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e52a505534642144b4f939196badbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testPrefab1: {fileID: 3821658720673687754, guid: d0164d7ee6ae94349b5fb425366d9805,
-    type: 3}
-  testPrefab2: {fileID: 3626424710013366907, guid: a98abc5d37537f24989e8e292af3e36c,
-    type: 3}
-  testPrefab3: {fileID: 7670366362719441355, guid: e4879a38fef5725438adb256da808dc4,
-    type: 3}
-  testPrefab4: {fileID: 2900998352494031732, guid: b90ade3883072a7448b42985436d9b75,
-    type: 3}
+  escalation: 1
+  obstacleList:
+  - {fileID: 2429100199437399696, guid: 0d434787bd8a63c418a6f46610be5a56, type: 3}
+  - {fileID: 3821658720673687754, guid: d0164d7ee6ae94349b5fb425366d9805, type: 3}
+  - {fileID: 3626424710013366907, guid: a98abc5d37537f24989e8e292af3e36c, type: 3}
+  - {fileID: 2900998352494031732, guid: b90ade3883072a7448b42985436d9b75, type: 3}
+  - {fileID: 7670366362719441355, guid: e4879a38fef5725438adb256da808dc4, type: 3}
 --- !u!4 &925216708
 Transform:
   m_ObjectHideFlags: 0
