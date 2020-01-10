@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     CapsuleCollider capsule;
 
+    public bool finished = false;
     public float maxSpeed;
     public float acceleration;
     public float friction;
@@ -63,6 +64,13 @@ public class PlayerController : MonoBehaviour
         {
             wallRunning = true;
             wall++;
+        }
+
+        if(hit.gameObject.tag == "Finish")
+        {
+            finished = true;
+            velocity = new Vector3(0,0,0);
+            maxSpeed = 0;
         }
         
     }
