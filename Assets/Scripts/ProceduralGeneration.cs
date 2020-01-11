@@ -12,6 +12,7 @@ public class ProceduralGeneration : MonoBehaviour
 	public PlayerController script;
 	public GameObject[] obstacleList;
 
+    private bool worldBuild = false;
 	private int selection = 0;
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class ProceduralGeneration : MonoBehaviour
 
     	script = player.GetComponent<PlayerController>();
     	escalation = 1;
+        worldBuild = false;
     	script.finished = false;
         script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
         script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
@@ -34,20 +36,30 @@ public class ProceduralGeneration : MonoBehaviour
     	if(script.finished == true)
     	{
 
+            respawn();
             escalation++;
-    		levelBuild();
 
     	}
+
+        if(worldBuild == true)
+        {
+            levelBuild();
+        }
+
+    }
+
+    void respawn()
+    {
+
+        Debug.Log("Sent: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
+        script.transform.position = new Vector3((50*escalation)+100, 10, (50*escalation)+100);
+        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        worldBuild = true;
 
     }
 
     void levelBuild()
     {
-
-        Debug.Log("Sent: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
-        script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
-        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
-        Debug.Log("Player: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
 
     	GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
     	foreach (GameObject target in oldObjects) {
@@ -79,8 +91,8 @@ public class ProceduralGeneration : MonoBehaviour
     	Instantiate(obstacleList[0], new Vector3((50*escalation)+100, 0, (50*escalation)+100), Quaternion.identity);
     	Instantiate(obstacleList[1], new Vector3(-((50*escalation)+100), 0, -((50*escalation)+100)), Quaternion.identity);
 
+        worldBuild = false;
         script.finished = false;
-
     }
 
 }

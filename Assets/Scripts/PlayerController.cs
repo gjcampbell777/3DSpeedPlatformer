@@ -42,9 +42,11 @@ public class PlayerController : MonoBehaviour
 
     float slideTime = 0.0f;
     float wallRunTime = 0.0f;
+    float respawnTime = 1.0f;
     float oneSec = 1.0f;
     float halfSec = 0.5f;
     float quarterSec = 0.25f;
+    float tenthSec = 0.1f;
 
     void Start()
     {
@@ -70,14 +72,14 @@ public class PlayerController : MonoBehaviour
         {
 
             velocity = new Vector3(0,0,0);
-            //moveDirection = new Vector3(0,0,0);
+            moveDirection = new Vector3(0,0,0);
             maxSpeed = 0;
 
-            if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || Input.GetButton("Stop"))
-            {
-                finished = true;
-            }
-        } 
+            finished = true;
+            respawnTime = Time.time;
+        } else {
+            finished = false;
+        }
         
     }
 
@@ -212,6 +214,7 @@ public class PlayerController : MonoBehaviour
         if (characterController.collisionFlags == CollisionFlags.None)
         {
             wallRunning = false;
+            //finished = false;
             wall = 0;
         }
 
@@ -276,7 +279,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Current Position: " + transform.position);
 
         // Move the controller
-        characterController.Move(velocity * Time.deltaTime);
+        if(finished == false && respawnTime + tenthSec < Time.time)
+        {
+            characterController.Move(velocity * Time.deltaTime);
+        }
 
         //Move the player in different directions based on camera look direction
         if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
