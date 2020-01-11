@@ -606,7 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e52a505534642144b4f939196badbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escalation: 1
+  escalation: 0
   player: {fileID: 1644583839}
   script: {fileID: 1644583840}
   obstacleList:

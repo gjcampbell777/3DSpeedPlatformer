@@ -21,6 +21,9 @@ public class ProceduralGeneration : MonoBehaviour
     	script = player.GetComponent<PlayerController>();
     	escalation = 1;
     	script.finished = false;
+        script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
+        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
     	levelBuild();
 
     }
@@ -31,8 +34,7 @@ public class ProceduralGeneration : MonoBehaviour
     	if(script.finished == true)
     	{
 
-    		escalation++;
-
+            escalation++;
     		levelBuild();
 
     	}
@@ -41,6 +43,11 @@ public class ProceduralGeneration : MonoBehaviour
 
     void levelBuild()
     {
+
+        Debug.Log("Sent: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
+        script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
+        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        Debug.Log("Player: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
 
     	GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
     	foreach (GameObject target in oldObjects) {
@@ -62,6 +69,9 @@ public class ProceduralGeneration : MonoBehaviour
 
 	        	selection = Random.Range(2, obstacleList.Length);
 	        	Instantiate(obstacleList[selection], new Vector3(50*i, 5, -50*j), Quaternion.identity);
+
+                script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
+                script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
     		}
 
     	}
@@ -69,15 +79,8 @@ public class ProceduralGeneration : MonoBehaviour
     	Instantiate(obstacleList[0], new Vector3((50*escalation)+100, 0, (50*escalation)+100), Quaternion.identity);
     	Instantiate(obstacleList[1], new Vector3(-((50*escalation)+100), 0, -((50*escalation)+100)), Quaternion.identity);
 
-    	player.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
-    	player.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
+        script.finished = false;
 
-    	if(escalation == 1)
-    	{
-    		script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
-    	}
-
-    	script.finished = false;
     }
 
 }

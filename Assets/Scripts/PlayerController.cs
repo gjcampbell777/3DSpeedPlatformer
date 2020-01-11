@@ -68,10 +68,16 @@ public class PlayerController : MonoBehaviour
 
         if(hit.gameObject.tag == "Finish")
         {
-            finished = true;
+
             velocity = new Vector3(0,0,0);
+            //moveDirection = new Vector3(0,0,0);
             maxSpeed = 0;
-        }
+
+            if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || Input.GetButton("Stop"))
+            {
+                finished = true;
+            }
+        } 
         
     }
 
@@ -261,13 +267,13 @@ public class PlayerController : MonoBehaviour
 
         velocity.y = moveDirection.y;
 
-        Debug.Log(moveDirection.y+"\n");
-
         if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f)
         {
             velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
             velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
         }
+
+        Debug.Log("Current Position: " + transform.position);
 
         // Move the controller
         characterController.Move(velocity * Time.deltaTime);
