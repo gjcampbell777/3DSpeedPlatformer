@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 
@@ -12,7 +13,6 @@ public class ProceduralGeneration : MonoBehaviour
 	public PlayerController script;
 	public GameObject[] obstacleList;
 
-    private bool worldBuild = false;
 	private int selection = 0;
 
     // Start is called before the first frame update
@@ -21,10 +21,9 @@ public class ProceduralGeneration : MonoBehaviour
 
     	script = player.GetComponent<PlayerController>();
     	escalation = 1;
-        worldBuild = false;
+        script.lives = 3;
     	script.finished = false;
-        script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
-        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+        respawn();
         script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
     	levelBuild();
 
@@ -36,14 +35,25 @@ public class ProceduralGeneration : MonoBehaviour
     	if(script.finished == true)
     	{
 
-            respawn();
             escalation++;
+            respawn();
+            levelBuild();
 
     	}
 
-        if(worldBuild == true)
+        if(script.respawn == true)
         {
-            levelBuild();
+            respawn();
+            script.lives--;
+            script.respawn = false;
+        }
+
+        if(script.lives == 0)
+        {
+            
+            script.lives = -1;
+            SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
+            
         }
 
     }
@@ -51,10 +61,8 @@ public class ProceduralGeneration : MonoBehaviour
     void respawn()
     {
 
-        Debug.Log("Sent: " + new Vector3((50*escalation)+100, 2, (50*escalation)+100));
-        script.transform.position = new Vector3((50*escalation)+100, 10, (50*escalation)+100);
+        script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
         script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
-        worldBuild = true;
 
     }
 
@@ -91,7 +99,6 @@ public class ProceduralGeneration : MonoBehaviour
     	Instantiate(obstacleList[0], new Vector3((50*escalation)+100, 0, (50*escalation)+100), Quaternion.identity);
     	Instantiate(obstacleList[1], new Vector3(-((50*escalation)+100), 0, -((50*escalation)+100)), Quaternion.identity);
 
-        worldBuild = false;
         script.finished = false;
     }
 

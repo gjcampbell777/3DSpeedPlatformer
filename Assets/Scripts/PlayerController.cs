@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 // This script moves the character controller forward
@@ -13,6 +14,8 @@ public class PlayerController : MonoBehaviour
     CapsuleCollider capsule;
 
     public bool finished = false;
+    public bool respawn = false;
+    public int lives = 3;
     public float maxSpeed;
     public float acceleration;
     public float friction;
@@ -77,9 +80,7 @@ public class PlayerController : MonoBehaviour
 
             finished = true;
             respawnTime = Time.time;
-        } else {
-            finished = false;
-        }
+        } 
         
     }
 
@@ -91,6 +92,20 @@ public class PlayerController : MonoBehaviour
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
         moveDirection.y = yStore;
+
+        if(transform.position.y < -20.0f)
+        {
+
+            respawn = true;
+            respawnTime = Time.time;
+
+            if (SceneManager.GetActiveScene().name == "Hub World")
+            {
+                transform.position = new Vector3(0, 2, 0);
+                transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+            }
+
+        }
 
         if (jump >= 2)
         {
@@ -214,7 +229,6 @@ public class PlayerController : MonoBehaviour
         if (characterController.collisionFlags == CollisionFlags.None)
         {
             wallRunning = false;
-            //finished = false;
             wall = 0;
         }
 
@@ -276,10 +290,8 @@ public class PlayerController : MonoBehaviour
             velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
         }
 
-        Debug.Log("Current Position: " + transform.position);
-
         // Move the controller
-        if(finished == false && respawnTime + tenthSec < Time.time)
+        if((finished == false || respawn == false) && respawnTime + tenthSec < Time.time)
         {
             characterController.Move(velocity * Time.deltaTime);
         }

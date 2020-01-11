@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hub World.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Floor Level.unity
+    guid: 1677949d058a3674f9e975f034bdb9a5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5dbe934aa009ccc4591ccf96f49a3d48,
       type: 2}
