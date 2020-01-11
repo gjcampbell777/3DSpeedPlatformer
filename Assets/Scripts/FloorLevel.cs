@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 [System.Serializable]
 
-public class ProceduralGeneration : MonoBehaviour
+public class FloorLevel : MonoBehaviour
 {
 
 	public int escalation;
