@@ -1284,6 +1284,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83127dd120c01de45954b99cc4d669a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finished: 0
+  respawn: 0
+  lives: 3
   maxSpeed: 25
   acceleration: 0.5
   friction: 0.1

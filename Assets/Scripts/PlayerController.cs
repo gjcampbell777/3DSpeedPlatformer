@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 // This script moves the character controller forward
@@ -12,6 +13,9 @@ public class PlayerController : MonoBehaviour
     CharacterController characterController;
     CapsuleCollider capsule;
 
+    public bool finished = false;
+    public bool respawn = false;
+    public int lives = 3;
     public float maxSpeed;
     public float acceleration;
     public float friction;
@@ -41,9 +45,11 @@ public class PlayerController : MonoBehaviour
 
     float slideTime = 0.0f;
     float wallRunTime = 0.0f;
+    float respawnTime = 1.0f;
     float oneSec = 1.0f;
     float halfSec = 0.5f;
     float quarterSec = 0.25f;
+    float tenthSec = 0.1f;
 
     void Start()
     {
@@ -64,6 +70,17 @@ public class PlayerController : MonoBehaviour
             wallRunning = true;
             wall++;
         }
+
+        if(hit.gameObject.tag == "Finish")
+        {
+
+            velocity = new Vector3(0,0,0);
+            moveDirection = new Vector3(0,0,0);
+            maxSpeed = 0;
+
+            finished = true;
+            respawnTime = Time.time;
+        } 
         
     }
 
@@ -75,6 +92,20 @@ public class PlayerController : MonoBehaviour
         moveDirection = transform.TransformDirection(moveDirection);
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
         moveDirection.y = yStore;
+
+        if(transform.position.y < -20.0f)
+        {
+
+            respawn = true;
+            respawnTime = Time.time;
+
+            if (SceneManager.GetActiveScene().name == "Hub World")
+            {
+                transform.position = new Vector3(0, 2, 0);
+                transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+            }
+
+        }
 
         if (jump >= 2)
         {
@@ -253,8 +284,6 @@ public class PlayerController : MonoBehaviour
 
         velocity.y = moveDirection.y;
 
-        Debug.Log(moveDirection.y+"\n");
-
         if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f)
         {
             velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
@@ -262,7 +291,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // Move the controller
-        characterController.Move(velocity * Time.deltaTime);
+        if((finished == false || respawn == false) && respawnTime + tenthSec < Time.time)
+        {
+            characterController.Move(velocity * Time.deltaTime);
+            respawn = false;
+        }
 
         //Move the player in different directions based on camera look direction
         if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
