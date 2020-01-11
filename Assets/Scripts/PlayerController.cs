@@ -294,6 +294,7 @@ public class PlayerController : MonoBehaviour
         if((finished == false || respawn == false) && respawnTime + tenthSec < Time.time)
         {
             characterController.Move(velocity * Time.deltaTime);
+            respawn = false;
         }
 
         //Move the player in different directions based on camera look direction
