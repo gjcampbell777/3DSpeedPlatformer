@@ -8,12 +8,17 @@ using UnityEngine.SceneManagement;
 public class FloorLevel : MonoBehaviour
 {
 
-	public int escalation;
+	public int escalation = 1;
 	public GameObject player;
 	public PlayerController script;
 	public GameObject[] obstacleList;
 
 	private int selection = 0;
+
+    void Awake()
+    {
+        script.respawnTime = Time.time;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -82,13 +87,13 @@ public class FloorLevel : MonoBehaviour
 	    		Instantiate(obstacleList[selection], new Vector3(50*i, 2, 50*j), Quaternion.identity);
 	    		
 	    		selection = Random.Range(2, obstacleList.Length);
-		        Instantiate(obstacleList[selection], new Vector3(-50*i, 3, -50*j), Quaternion.identity);
+		        Instantiate(obstacleList[selection], new Vector3(-50*i, 2, -50*j), Quaternion.identity);
 
 	    	    selection = Random.Range(2, obstacleList.Length);
-	        	Instantiate(obstacleList[selection], new Vector3(-50*i, 4, 50*j), Quaternion.identity);
+	        	Instantiate(obstacleList[selection], new Vector3(-50*i, 2, 50*j), Quaternion.identity);
 
 	        	selection = Random.Range(2, obstacleList.Length);
-	        	Instantiate(obstacleList[selection], new Vector3(50*i, 5, -50*j), Quaternion.identity);
+	        	Instantiate(obstacleList[selection], new Vector3(50*i, 2, -50*j), Quaternion.identity);
 
                 script.transform.position = new Vector3((50*escalation)+100, 2, (50*escalation)+100);
                 script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);

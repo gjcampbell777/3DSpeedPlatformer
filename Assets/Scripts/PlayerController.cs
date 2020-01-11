@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     float slideTime = 0.0f;
     float wallRunTime = 0.0f;
-    float respawnTime = 1.0f;
+    public float respawnTime = 0.0f;
     float oneSec = 1.0f;
     float halfSec = 0.5f;
     float quarterSec = 0.25f;
@@ -81,6 +81,12 @@ public class PlayerController : MonoBehaviour
             finished = true;
             respawnTime = Time.time;
         } 
+
+        if(hit.gameObject.tag == "Obstacle Portal")
+        {
+            SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
+            respawnTime = Time.time;
+        }
         
     }
 
@@ -289,6 +295,8 @@ public class PlayerController : MonoBehaviour
             velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
             velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
         }
+
+        Debug.Log(transform.position);
 
         // Move the controller
         if((finished == false || respawn == false) && respawnTime + tenthSec < Time.time)

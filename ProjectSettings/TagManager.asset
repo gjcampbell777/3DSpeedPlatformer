@@ -7,6 +7,10 @@ TagManager:
   - Environment
   - Wall
   - Obstacle
+  - Obstacle Portal
+  - Waypoint Portal
+  - Infinite Portal
+  - Waypoint
   layers:
   - Default
   - TransparentFX
