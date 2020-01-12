@@ -146,14 +146,14 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(Input.GetButton("Crouch"))
+            if(Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f)
             {
 
                 characterController.height /= 2;
                 capsule.height /= 2;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight/2, transform.localScale.z);
 
-                if(Input.GetButtonDown("Crouch"))
+                if(Input.GetButtonDown("Crouch") || Input.GetAxis("Crouch") == 1.0f)
                 {
                     if((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
                     {
@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
         } else {
             slideTime = Time.time;
 
-            if(Input.GetButton("Crouch"))
+            if(Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f)
             {
 
                 characterController.height /= 2;
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
             }
 
             //Might want to change move direction value to make triggering this speed up effect easier/harder 
-            if(diving && moveDirection.y > 0.75 && Input.GetButtonDown("Crouch"))
+            if(diving && moveDirection.y > 0.75 && (Input.GetButtonDown("Crouch") || Input.GetAxis("Crouch") == 1.0f ))
             {
                 dive++;
                 if(dive == 1){
@@ -268,7 +268,7 @@ public class PlayerController : MonoBehaviour
         velocity.x += moveDirection.x; 
         velocity.z += moveDirection.z;
 
-        if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || Input.GetButton("Stop")){
+        if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || (Input.GetButton("Stop") || Input.GetAxis("Stop") == 1.0f)){
 
             //Remove or "lower" friction to add an 'ice' effect
             velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
