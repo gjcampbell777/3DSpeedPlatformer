@@ -36,32 +36,19 @@ public class CameraController : MonoBehaviour
             pivot.Rotate(-camY, 0, 0);
         }
 
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-        	player.Rotate(0, camX, 0);
-        	pivot.Rotate(0, 0, 0);
-    	}
-
         if(pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f)
         {
-            pivot.rotation = Quaternion.Euler(maxViewAngle, 0, 0);
+            pivot.rotation = Quaternion.Euler(maxViewAngle, pivot.rotation.eulerAngles.y, pivot.rotation.eulerAngles.z);
         }
 
         if(pivot.rotation.eulerAngles.x > 180f && pivot.rotation.eulerAngles.x < (360 + minViewAngle))
         {
-            pivot.rotation = Quaternion.Euler(minViewAngle, 0, 0);
+            pivot.rotation = Quaternion.Euler(minViewAngle, pivot.rotation.eulerAngles.y, pivot.rotation.eulerAngles.z);
         }
 
         float camZ = Input.GetAxisRaw("Mouse ScrollWheel");
         float angleY = pivot.eulerAngles.y;
         float angleX = pivot.eulerAngles.x;
-
-        /* Code to force the camera behind the player
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-        	angleY = player.eulerAngles.y;
-        	angleX = player.eulerAngles.x;
-    	} */
 
     	float cameraAngle = transform.eulerAngles.y;
 
