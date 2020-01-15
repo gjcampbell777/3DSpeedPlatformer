@@ -1345,7 +1345,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695439478}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -1886,6 +1886,7 @@ MonoBehaviour:
   rotationSpeed: 20
   pivot: {fileID: 1402695046}
   playerModel: {fileID: 615882415}
+  respawnTime: 0
 --- !u!143 &741217458
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2936,7 +2937,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512854627}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}

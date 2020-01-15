@@ -80,11 +80,25 @@ public class PlayerController : MonoBehaviour
 
             finished = true;
             respawnTime = Time.time;
-        } 
+        }
+
+        if(hit.gameObject.tag == "Waypoint")
+        {
+
+            finished = true;
+            respawnTime = Time.time;
+            
+        }
 
         if(hit.gameObject.tag == "Obstacle Portal")
         {
             SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
+            respawnTime = Time.time;
+        }
+
+        if(hit.gameObject.tag == "Waypoint Portal")
+        {
+            SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
             respawnTime = Time.time;
         }
         
