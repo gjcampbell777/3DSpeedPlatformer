@@ -169,18 +169,16 @@ public class PlayerController : MonoBehaviour
 
                 if(Input.GetButtonDown("Crouch") || Input.GetAxis("Crouch") == 1.0f)
                 {
-                    if((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+                    if((Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0) && !sliding)
                     {
-                        sliding = true;
                         slideTime = Time.time;
-                    } else {
-                        sliding = false;   
-                    }
+                        sliding = true;
+                    } 
                 } 
 
-                if(slideTime + halfSec >= Time.time && sliding == true)
+                if(slideTime + halfSec > Time.time)
                 {
-                
+
                     if(maxSpeed < maxSpeedStore*2)
                     {
                         maxSpeed += acceleration*2;
@@ -192,10 +190,10 @@ public class PlayerController : MonoBehaviour
                     }
                 
                 } else {
-                
+
                     if(maxSpeed > maxSpeedStore/4)
                     {
-                        maxSpeed -= acceleration;
+                        maxSpeed -= acceleration*2;
                     }
 
                 }
@@ -234,8 +232,6 @@ public class PlayerController : MonoBehaviour
                 if(dive == 1){
                     maxSpeed += 10;
                 }
-                sliding = true;
-                slideTime = Time.time;
             }
 
         }
