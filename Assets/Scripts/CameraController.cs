@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -21,15 +22,21 @@ public class CameraController : MonoBehaviour
         pivot.position = player.position;
         pivot.parent = null;
 
-        Cursor.visible = !Cursor.visible;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void LateUpdate(){
-        float camX = Input.GetAxisRaw("Mouse X") * rotateSpeed;
-        pivot.Rotate(0, camX, 0);
 
-        float camY = Input.GetAxisRaw("Mouse Y") * rotateSpeed;
+    	float camX = 0;
+        float camY = 0;
+
+    	if(!PauseMenu.GameIsPaused)
+    	{
+    		camX = Input.GetAxisRaw("Mouse X") * rotateSpeed;
+        	camY = Input.GetAxisRaw("Mouse Y") * rotateSpeed;
+    	}
+        
+        pivot.Rotate(0, camX, 0);
+        
         if (invertY){
             pivot.Rotate(camY, 0, 0);
         } else {

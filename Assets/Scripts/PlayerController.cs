@@ -60,6 +60,9 @@ public class PlayerController : MonoBehaviour
         capsuleHeight = capsule.height;
         maxSpeedStore = maxSpeed;
         accelerationStore = acceleration;
+
+        Cursor.visible = !Cursor.visible;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -160,7 +163,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f)
+            if((Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f) && !PauseMenu.GameIsPaused)
             {
 
                 characterController.height /= 2;
@@ -209,7 +212,7 @@ public class PlayerController : MonoBehaviour
         } else {
             slideTime = Time.time;
 
-            if(Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f)
+            if((Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f) && !PauseMenu.GameIsPaused)
             {
 
                 characterController.height /= 2;
