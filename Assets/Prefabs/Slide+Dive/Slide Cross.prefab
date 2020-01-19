@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 5159749940163246074}
   m_Layer: 0
   m_Name: Slide Cross
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4144694286764637475}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 11.5, z: 0}
+  m_LocalPosition: {x: 25, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 20, z: 25}
   m_Children: []
   m_Father: {fileID: 1816923026177045126}
@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6217418974417988762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.5, z: 25}
+  m_LocalPosition: {x: 0, y: 12, z: 25}
   m_LocalScale: {x: 25, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 1816923026177045126}
@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7036505850499278575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.5, z: -25}
+  m_LocalPosition: {x: 0, y: 12, z: -25}
   m_LocalScale: {x: 25, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 1816923026177045126}
@@ -591,7 +591,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8930383824254137011}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 11.5, z: 0}
+  m_LocalPosition: {x: -25, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 20, z: 25}
   m_Children: []
   m_Father: {fileID: 1816923026177045126}

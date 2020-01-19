@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 public class FloorLevel : MonoBehaviour
 {
 
-	public int escalation = 1;
-    public int level = 1;
+    public static bool gameOver = false;
+	public static int escalation = 1;
+    public static int level = 1;
+    public static float fullTime;
 	public GameObject player;
 	public PlayerController script;
 	public GameObject[] obstacleList;
@@ -26,7 +28,8 @@ public class FloorLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        fullTime = Time.time;
+        gameOver = false;
     	script = player.GetComponent<PlayerController>();
     	escalation = 1;
         script.lives = 3;
@@ -61,6 +64,9 @@ public class FloorLevel : MonoBehaviour
         {
             
             script.lives = -1;
+            PauseMenu.GameIsOver = true;
+            fullTime = Time.time - fullTime;
+            gameOver = true;
             SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
             
         }

@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour
 {
     
     public static bool GameIsPaused = false;
+    public static bool GameIsOver = false;
 
     public GameObject pauseMenuUI;
+    public GameObject gameOverUI;
+
+    public TextMeshProUGUI ScoreText;
+    public TextMeshProUGUI TimeText;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +40,13 @@ public class PauseMenu : MonoBehaviour
     		}
     	}
 
+    	if(GameIsOver)
+    	{
+    		GameOver();
+    		Cursor.visible = Cursor.visible;
+        	Cursor.lockState = CursorLockMode.None;
+    	}
+
     }
 
     public void Resume()
@@ -41,6 +54,7 @@ public class PauseMenu : MonoBehaviour
     	pauseMenuUI.SetActive(false);
     	Time.timeScale = 1f;
     	GameIsPaused = false;
+    	GameIsOver = false;
     	Cursor.visible = !Cursor.visible;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -48,6 +62,27 @@ public class PauseMenu : MonoBehaviour
     void Pause()
     {
     	pauseMenuUI.SetActive(true);
+    	Time.timeScale = 0f;
+    	GameIsPaused = true;
+    	Cursor.visible = Cursor.visible;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    void GameOver()
+    {
+    	if(FloorLevel.gameOver == true)
+    	{
+    		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
+    		TimeText.text = "TIME: " + FloorLevel.fullTime;
+    	}
+
+    	if(WaypointRace.gameOver == true)
+    	{
+    		ScoreText.text = "LEVEL: " + WaypointRace.size + "-" + WaypointRace.level;
+    		TimeText.text = "TIME: " + WaypointRace.fullTime;
+    	}
+
+    	gameOverUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
     	Cursor.visible = Cursor.visible;

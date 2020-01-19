@@ -8,8 +8,10 @@ using UnityEngine.SceneManagement;
 public class WaypointRace : MonoBehaviour
 {
 
-	public int size = 1;
-    public int level = 1;
+	public static bool gameOver = false;
+	public static int size = 1;
+    public static int level = 1;
+    public static float fullTime;
     public int completionTime = 120;
     public float countdown = 0;
 	public GameObject player;
@@ -31,6 +33,8 @@ public class WaypointRace : MonoBehaviour
     void Start()
     {
 
+    	fullTime = Time.time;
+    	gameOver = false;
     	script = player.GetComponent<PlayerController>();
     	size = 2;
     	script.finished = false;
@@ -73,6 +77,9 @@ public class WaypointRace : MonoBehaviour
         if(countdown + completionTime < Time.time)
         {
             
+            PauseMenu.GameIsOver = true;
+            gameOver = true;
+            fullTime = Time.time - fullTime;
             SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
             
         }
