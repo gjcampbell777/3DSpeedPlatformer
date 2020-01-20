@@ -307,7 +307,8 @@ public class PlayerController : MonoBehaviour
 
         velocity.y = moveDirection.y;
 
-        if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f)
+        if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f
+            && (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0))
         {
             velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
             velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
