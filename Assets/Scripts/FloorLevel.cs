@@ -31,6 +31,7 @@ public class FloorLevel : MonoBehaviour
         fullTime = Time.time;
         gameOver = false;
     	script = player.GetComponent<PlayerController>();
+        level = 1;
     	escalation = 1;
         script.lives = 3;
     	script.finished = false;
@@ -47,7 +48,11 @@ public class FloorLevel : MonoBehaviour
     	{
 
             level++;
-            if(level > 3) escalation++;
+            if(level > 3) 
+            {
+                escalation++;
+                level = 1;
+            }
             respawn();
             levelBuild();
 

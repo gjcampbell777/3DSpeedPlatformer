@@ -15,6 +15,7 @@ public class PauseMenu : MonoBehaviour
 
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI TimeText;
+    public TextMeshProUGUI LivesText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,20 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         
+    	if(SceneManager.GetActiveScene().name == "Floor Level") 
+    	{
+    		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
+    		LivesText.text = "LIVES: " + PlayerController.shownLives;
+    	}
+
+    	if(SceneManager.GetActiveScene().name == "Waypoint Race")
+    	{
+
+    		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
+    		TimeText.text = "TIME: " + Mathf.Round((WaypointRace.countdown + WaypointRace.completionTime) - Time.time);
+
+    	}
+
     	if(Input.GetButtonDown("Pause"))
     	{
     		if(GameIsPaused)
@@ -73,13 +88,13 @@ public class PauseMenu : MonoBehaviour
     	if(FloorLevel.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
-    		TimeText.text = "TIME: " + FloorLevel.fullTime;
+    		TimeText.text = "TIME: " + Mathf.Round(FloorLevel.fullTime);
     	}
 
     	if(WaypointRace.gameOver == true)
     	{
-    		ScoreText.text = "LEVEL: " + WaypointRace.size + "-" + WaypointRace.level;
-    		TimeText.text = "TIME: " + WaypointRace.fullTime;
+    		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
+    		TimeText.text = "TIME: " + Mathf.Round(WaypointRace.fullTime);
     	}
 
     	gameOverUI.SetActive(true);

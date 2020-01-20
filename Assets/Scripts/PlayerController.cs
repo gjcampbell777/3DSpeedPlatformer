@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public bool finished = false;
     public bool respawn = false;
     public int lives = 3;
+    public static int shownLives = 3;
     public float maxSpeed;
     public float acceleration;
     public float friction;
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
         capsuleHeight = capsule.height;
         maxSpeedStore = maxSpeed;
         accelerationStore = acceleration;
+
+        shownLives = 3;
 
         Cursor.visible = !Cursor.visible;
         Cursor.lockState = CursorLockMode.Locked;
@@ -121,6 +124,7 @@ public class PlayerController : MonoBehaviour
 
             respawn = true;
             respawnTime = Time.time;
+            shownLives--;
 
             if (SceneManager.GetActiveScene().name == "Hub World")
             {

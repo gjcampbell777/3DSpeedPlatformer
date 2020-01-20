@@ -12,8 +12,8 @@ public class WaypointRace : MonoBehaviour
 	public static int size = 1;
     public static int level = 1;
     public static float fullTime;
-    public int completionTime = 120;
-    public float countdown = 0;
+    public static int completionTime = 120;
+    public static float countdown = 0;
 	public GameObject player;
 	public PlayerController script;
 	public GameObject waypoint;
@@ -37,12 +37,14 @@ public class WaypointRace : MonoBehaviour
     	gameOver = false;
     	script = player.GetComponent<PlayerController>();
     	size = 2;
+    	level = 1;
     	script.finished = false;
         respawn();
         script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
     	levelBuild();
     	waypointPlacement();
     	countdown = Time.time;
+    	completionTime = 60;
 
     }
 
@@ -57,12 +59,12 @@ public class WaypointRace : MonoBehaviour
             if(level > 3)
             {
             	size++;
+            	level = 1;
             	script.respawn = true;
             	script.respawnTime = Time.time + 0.25f;
             	countdown = Time.time;
-            	completionTime = 120 * size;
+            	completionTime = 60 * (size - 1);
             	levelBuild();
-            	level = 1;
             }
             script.finished = false;
 
@@ -152,6 +154,12 @@ public class WaypointRace : MonoBehaviour
 
     	groundedScript.transform.position = new Vector3(
     			Random.Range(-100*size, 100*size), Random.Range(2, 10), Random.Range(-100*size, 100*size));
+
+    	if((groundedScript.transform.position.x < 100 && groundedScript.transform.position.x > -100)
+    		|| (groundedScript.transform.position.z < 100 && groundedScript.transform.position.z > -100))
+    	{
+    		waypointPlacement();
+    	}
     }
 
 }
