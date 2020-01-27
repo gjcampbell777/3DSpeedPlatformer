@@ -79,9 +79,11 @@ public class WaypointRace : MonoBehaviour
         if(countdown + completionTime < Time.time)
         {
             
-            PauseMenu.GameIsOver = true;
             gameOver = true;
             fullTime = Time.time - fullTime;
+            Cursor.visible = true;
+        	Cursor.lockState = CursorLockMode.None;
+        	PauseMenu.GameIsOver = true;
             SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
             
         }

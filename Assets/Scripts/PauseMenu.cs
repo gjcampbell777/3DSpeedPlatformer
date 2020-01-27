@@ -17,74 +17,59 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI LivesText;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
-        
-    	if(SceneManager.GetActiveScene().name == "Floor Level") 
-    	{
-    		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
-    		LivesText.text = "LIVES: " + PlayerController.shownLives;
-    	}
-
-    	if(SceneManager.GetActiveScene().name == "Waypoint Race")
-    	{
-
-    		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
-    		TimeText.text = "TIME: " + Mathf.Round((WaypointRace.countdown + WaypointRace.completionTime) - Time.time);
-
-    	}
 
     	if(Input.GetButtonDown("Pause"))
     	{
     		if(GameIsPaused)
     		{
     			Resume();
-    			Cursor.visible = !Cursor.visible;
-        		Cursor.lockState = CursorLockMode.Locked;
+
     		} else {
+
     			Pause();
-    			Cursor.visible = Cursor.visible;
-        		Cursor.lockState = CursorLockMode.None;
+
     		}
     	}
 
     	if(GameIsOver)
     	{
     		GameOver();
-    		Cursor.visible = Cursor.visible;
-        	Cursor.lockState = CursorLockMode.None;
     	}
 
     }
 
     public void Resume()
     {
+    	Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     	pauseMenuUI.SetActive(false);
+    	gameOverUI.SetActive(false);
     	Time.timeScale = 1f;
     	GameIsPaused = false;
     	GameIsOver = false;
-    	Cursor.visible = !Cursor.visible;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Pause()
     {
+    	Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     	pauseMenuUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
-    	Cursor.visible = Cursor.visible;
-        Cursor.lockState = CursorLockMode.None;
     }
 
     void GameOver()
     {
+
+    	Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        gameOverUI.SetActive(true);
+    	Time.timeScale = 0f;
+    	GameIsPaused = true;
+
     	if(FloorLevel.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
@@ -97,11 +82,6 @@ public class PauseMenu : MonoBehaviour
     		TimeText.text = "TIME: " + Mathf.Round(WaypointRace.fullTime);
     	}
 
-    	gameOverUI.SetActive(true);
-    	Time.timeScale = 0f;
-    	GameIsPaused = true;
-    	Cursor.visible = Cursor.visible;
-        Cursor.lockState = CursorLockMode.None;
     }
 
     public void LoadHubWorld()
@@ -109,7 +89,7 @@ public class PauseMenu : MonoBehaviour
     	Time.timeScale = 1f;
     	GameIsPaused = false;
     	SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
-    	Cursor.visible = !Cursor.visible;
+    	Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -118,6 +98,8 @@ public class PauseMenu : MonoBehaviour
     	Time.timeScale = 1f;
     	GameIsPaused = false;
     	SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+    	Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Quit()

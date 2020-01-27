@@ -69,9 +69,11 @@ public class FloorLevel : MonoBehaviour
         {
             
             script.lives = -1;
-            PauseMenu.GameIsOver = true;
             fullTime = Time.time - fullTime;
             gameOver = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            PauseMenu.GameIsOver = true;
             SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
             
         }

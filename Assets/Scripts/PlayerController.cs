@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
         shownLives = 3;
 
-        Cursor.visible = !Cursor.visible;
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
