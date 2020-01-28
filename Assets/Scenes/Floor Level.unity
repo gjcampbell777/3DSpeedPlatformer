@@ -1177,7 +1177,7 @@ MonoBehaviour:
   pauseMenuUI: {fileID: 525105854}
   gameOverUI: {fileID: 525105854}
   ScoreText: {fileID: 1455233009}
-  TimeText: {fileID: 0}
+  TimeText: {fileID: 1455233009}
   LivesText: {fileID: 1368792133}
   pauseFirstButton: {fileID: 223326611}
   gameOverFirstButton: {fileID: 0}

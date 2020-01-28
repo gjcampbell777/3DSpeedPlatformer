@@ -21,9 +21,25 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseFirstButton;
     public GameObject gameOverFirstButton;
 
+    private int gameOver = 0;
+
     // Update is called once per frame
     void Update()
     {
+
+    	if(SceneManager.GetActiveScene().name == "Floor Level") 
+    	{
+    		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
+    		LivesText.text = "LIVES: " + PlayerController.shownLives;
+    	}
+
+    	if(SceneManager.GetActiveScene().name == "Waypoint Race")
+    	{
+
+    		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
+    		TimeText.text = "TIME: " + Mathf.Round((WaypointRace.countdown + WaypointRace.completionTime) - Time.time);
+
+    	}
 
     	if(Input.GetButtonDown("Pause"))
     	{
@@ -41,6 +57,15 @@ public class PauseMenu : MonoBehaviour
     	if(GameIsOver)
     	{
     		GameOver();
+
+    		if(gameOver == 0)
+    		{
+    			EventSystem.current.SetSelectedGameObject(null);
+    			EventSystem.current.SetSelectedGameObject(gameOverFirstButton);
+    		}
+
+    		gameOver++;
+
     	}
 
     }
@@ -75,8 +100,6 @@ public class PauseMenu : MonoBehaviour
         gameOverUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
-    	EventSystem.current.SetSelectedGameObject(null);
-    	EventSystem.current.SetSelectedGameObject(gameOverFirstButton);
 
     	if(FloorLevel.gameOver == true)
     	{
@@ -108,6 +131,25 @@ public class PauseMenu : MonoBehaviour
     	SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     	Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Retry()
+    {
+    	Time.timeScale = 1f;
+    	GameIsPaused = false;
+    	Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+        if(FloorLevel.gameOver == true)
+    	{
+    		SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
+    	}
+
+    	if(WaypointRace.gameOver == true)
+    	{
+    		SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
+    	}
+
     }
 
     public void Quit()
