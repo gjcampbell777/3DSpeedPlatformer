@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI LivesText;
+
+    public GameObject pauseFirstButton;
+    public GameObject gameOverFirstButton;
 
     // Update is called once per frame
     void Update()
@@ -59,6 +63,8 @@ public class PauseMenu : MonoBehaviour
     	pauseMenuUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
+    	EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(pauseFirstButton);
     }
 
     void GameOver()
@@ -69,6 +75,8 @@ public class PauseMenu : MonoBehaviour
         gameOverUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
+    	EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(gameOverFirstButton);
 
     	if(FloorLevel.gameOver == true)
     	{
