@@ -41,6 +41,12 @@ public class PauseMenu : MonoBehaviour
 
     	}
 
+    	if(SceneManager.GetActiveScene().name == "Infinity Runner") 
+    	{
+    		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
+    		LivesText.text = "LIVES: " + PlayerController.shownLives;
+    	}
+
     	if(Input.GetButtonDown("Pause"))
     	{
     		if(GameIsPaused)
@@ -113,6 +119,12 @@ public class PauseMenu : MonoBehaviour
     		TimeText.text = "TIME: " + Mathf.Round(WaypointRace.fullTime);
     	}
 
+    	if(InfinityRunner.gameOver == true)
+    	{
+    		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
+    		TimeText.text = "TIME: " + Mathf.Round(InfinityRunner.fullTime);
+    	}
+
     }
 
     public void LoadHubWorld()
@@ -148,6 +160,11 @@ public class PauseMenu : MonoBehaviour
     	if(WaypointRace.gameOver == true)
     	{
     		SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
+    	}
+
+    	if(InfinityRunner.gameOver == true)
+    	{
+    		SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
     	}
 
     }

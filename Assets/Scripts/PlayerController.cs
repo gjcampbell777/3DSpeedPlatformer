@@ -107,6 +107,12 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
             respawnTime = Time.time;
         }
+
+        if(hit.gameObject.tag == "Infinite Portal")
+        {
+            SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
+            respawnTime = Time.time;
+        }
         
     }
 
