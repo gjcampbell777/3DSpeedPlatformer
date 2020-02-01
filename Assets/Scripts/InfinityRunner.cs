@@ -59,12 +59,6 @@ public class InfinityRunner : MonoBehaviour
             {
                 escalation++;
                 level = 1;
-                
-                if(countdownTime > 3.0f)
-                {
-                	countdownTime -= 0.5f;
-                }
-
             }
 
             GameObject spawn;
