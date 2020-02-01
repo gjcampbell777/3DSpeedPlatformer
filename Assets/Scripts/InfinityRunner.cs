@@ -17,6 +17,7 @@ public class InfinityRunner : MonoBehaviour
 	public GameObject[] obstacleList;
     public GameObject[] easyObstacleList;
     public GameObject[] medObstaclelIst;
+    public GameObject boundaries;
 
     private int selection;
 	private float countdownTime = 5.0f;
@@ -67,6 +68,8 @@ public class InfinityRunner : MonoBehaviour
             }
 
             GameObject spawn;
+            GameObject wallOne;
+            GameObject wallTwo;
 
             if(level == 1)
             {
@@ -81,7 +84,11 @@ public class InfinityRunner : MonoBehaviour
             	} else {
             		selection = Random.Range(0, easyObstacleList.Length);
             		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+
             	}
+
+            	wallOne = Instantiate(boundaries, new Vector3(((25f*(escalation)))/2, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(escalation)))/-2, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
 
             } else {
 
@@ -97,15 +104,23 @@ public class InfinityRunner : MonoBehaviour
             		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
             	}
 
+            	wallOne = Instantiate(boundaries, new Vector3(((25f*(escalation)))/2, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(escalation)))/-2, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+
             }
             
             spawn.transform.localScale = new Vector3(spawn.transform.localScale.x*(0.25f*(escalation)), 1, spawn.transform.localScale.z*(0.25f*escalation));
+            wallOne.transform.localScale = new Vector3(wallOne.transform.localScale.x*(0.25f*(escalation)), 1, wallOne.transform.localScale.z*(0.25f*escalation));
+            wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(escalation)), 1, wallTwo.transform.localScale.z*(0.25f*escalation));
 
             lastSpawn = spawn.transform;
 
             spawnTime = Time.time;
 
-            Destroy(GameObject.FindWithTag("Environment"));
+            GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
+    		for(int i = 0; i < 3; i++) {
+        		GameObject.Destroy(oldObjects[i]);
+    		}
 
     	}
 
@@ -142,13 +157,31 @@ public class InfinityRunner : MonoBehaviour
     void levelBuild()
     {
 
-    	GameObject start = Instantiate(obstacleList[0], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-    	GameObject startOne = Instantiate(obstacleList[0], new Vector3(0, 0, 25),  Quaternion.identity) as GameObject;
-    	GameObject startTwo = Instantiate(obstacleList[0], new Vector3(0, 0, 50),  Quaternion.identity) as GameObject;
+    	GameObject walls;
 
+    	GameObject start = Instantiate(obstacleList[0], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
     	start.transform.localScale = new Vector3(25, 1, 25);
-    	startOne.transform.localScale = new Vector3(25, 1, 25);
-    	startTwo.transform.localScale = new Vector3(25, 1, 25);
+
+    	walls = Instantiate(boundaries, new Vector3(12.5f, 0, 0), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+        walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 0), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        GameObject startOne = Instantiate(obstacleList[0], new Vector3(0, 0, 25),  Quaternion.identity) as GameObject;
+        startOne.transform.localScale = new Vector3(25, 1, 25);
+
+        walls = Instantiate(boundaries, new Vector3(12.5f, 0, 25), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+        walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 25), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        GameObject startTwo = Instantiate(obstacleList[0], new Vector3(0, 0, 50),  Quaternion.identity) as GameObject;
+        startTwo.transform.localScale = new Vector3(25, 1, 25);
+
+        walls = Instantiate(boundaries, new Vector3(12.5f, 0, 50), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+        walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 50), Quaternion.identity) as GameObject;
+        walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
 
     	lastSpawn = startTwo.transform;
 
