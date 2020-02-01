@@ -17,9 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Waypoint Race.unity
     guid: bdc3fbfbcb669514bb88dd980ef3b259
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Infinity Runner.unity
+    guid: b20f4caac2446934da2e0ad194ea7ee1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 5dbe934aa009ccc4591ccf96f49a3d48,
       type: 2}
