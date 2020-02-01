@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     private int wall = 0;
     private int dive = 0;
     private float maxSpeedStore;
-    private float maxSpeedCap = 100;
     private float accelerationStore;
     private float capsuleHeight;
     private float controllerHeight;
@@ -296,12 +295,8 @@ public class PlayerController : MonoBehaviour
             //Remove or "lower" friction to add an 'ice' effect
             velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
             velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+            maxSpeed = 25;
 
-        }
-
-        if(maxSpeed > maxSpeedCap)
-        {
-            maxSpeed = maxSpeedCap;
         }
 
         if(characterController.velocity == new Vector3(0, 0, 0))
