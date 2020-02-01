@@ -19,6 +19,7 @@ public class WaypointRace : MonoBehaviour
 	public GameObject waypoint;
 	public Waypoint groundedScript;
 	public GameObject[] obstacleList;
+	public GameObject boundaries;
 
 	private int selection = 0;
 
@@ -145,9 +146,27 @@ public class WaypointRace : MonoBehaviour
                 	Instantiate(obstacleList[selection], new Vector3(-100*i-50, 0, 100*j+50),  Quaternion.Euler(0, 90+Random.Range(0,4), 0));
                 }
 
+                if(i == size-1)
+                {
+                	Instantiate(boundaries, new Vector3(100*(i+1), 0, 100*j+50),  Quaternion.identity);
+                	Instantiate(boundaries, new Vector3(-100*(i+1), 0, 100*j+50),  Quaternion.identity);
+                	Instantiate(boundaries, new Vector3(100*(i+1), 0, -100*j-50),  Quaternion.identity);
+                	Instantiate(boundaries, new Vector3(-100*(i+1), 0, -100*j-50),  Quaternion.identity);
+                } 
+
+                if(j == size-1)
+                {
+                	Instantiate(boundaries, new Vector3(100*i+50, 0, 100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                	Instantiate(boundaries, new Vector3(-100*i-50, 0, 100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                	Instantiate(boundaries, new Vector3(100*i+50, 0, -100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                	Instantiate(boundaries, new Vector3(-100*i-50, 0, -100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                }
+
     		}
 
-    	} 
+    	}
+
+
 
     }
 
