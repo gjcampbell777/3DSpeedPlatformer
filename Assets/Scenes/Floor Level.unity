@@ -2501,6 +2501,8 @@ MonoBehaviour:
   - {fileID: 5880479941740923922, guid: d8233406c7b546e419c918c028ec65af, type: 3}
   - {fileID: 3425233021637308467, guid: 9cfafec4161cf3c4f86a3824513846ac, type: 3}
   - {fileID: 2729766386463878366, guid: 258ef028e1596b043b63e318da3964f2, type: 3}
+  boundaries: {fileID: 9181995847428758509, guid: cd8f80a3dcff4954598e8b72fd740734,
+    type: 3}
 --- !u!4 &1677821150
 Transform:
   m_ObjectHideFlags: 0

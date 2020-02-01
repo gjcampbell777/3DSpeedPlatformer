@@ -17,6 +17,7 @@ public class FloorLevel : MonoBehaviour
 	public GameObject[] obstacleList;
     public GameObject[] easyObstacleList;
     public GameObject[] medObstaclelIst;
+    public GameObject boundaries;
 
 	private int selection = 0;
     
@@ -280,6 +281,30 @@ public class FloorLevel : MonoBehaviour
                             Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
                             break;
                     }
+                }
+
+                if(i == escalation-1)
+                {
+                    Instantiate(boundaries, new Vector3(-100*(i+1), 0, 100*j+50),  Quaternion.identity);
+                    Instantiate(boundaries, new Vector3(100*(i+1), 0, -100*j-50),  Quaternion.identity);
+                } 
+
+                if (i == escalation-1 && i != j)
+                {
+                    Instantiate(boundaries, new Vector3(100*(i+1), 0, 100*j+50),  Quaternion.identity);
+                    Instantiate(boundaries, new Vector3(-100*(i+1), 0, -100*j-50),  Quaternion.identity);
+                }
+
+                if(j == escalation-1)
+                {
+                    Instantiate(boundaries, new Vector3(-100*i-50, 0, 100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                    Instantiate(boundaries, new Vector3(100*i+50, 0, -100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                }
+
+                if(j == escalation-1 && i != j)
+                {
+                    Instantiate(boundaries, new Vector3(100*i+50, 0, 100*(j+1)),  Quaternion.Euler(0, 90, 0));
+                    Instantiate(boundaries, new Vector3(-100*i-50, 0, -100*(j+1)),  Quaternion.Euler(0, 90, 0));
                 }
 
     		}
