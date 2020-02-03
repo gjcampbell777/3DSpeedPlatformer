@@ -26,21 +26,29 @@ public class CameraController : MonoBehaviour
 
     void LateUpdate(){
 
-    	float camX = 0;
-        float camY = 0;
+    	float mouseCamX = 0;
+        float mouseCamY = 0;
+        float controllerCamX = 0;
+        float controllerCamY = 0;
 
     	if(!PauseMenu.GameIsPaused)
     	{
-    		camX = Input.GetAxisRaw("Mouse X") * rotateSpeed;
-        	camY = Input.GetAxisRaw("Mouse Y") * rotateSpeed;
+    		mouseCamX = Input.GetAxisRaw("Mouse X") * rotateSpeed;
+        	mouseCamY = Input.GetAxisRaw("Mouse Y") * rotateSpeed;
+
+        	controllerCamX = Input.GetAxisRaw("Right Stick X") * (rotateSpeed * 200.0f) * Time.deltaTime;
+        	controllerCamY = Input.GetAxisRaw("Right Stick Y") * (rotateSpeed * 200.0f) * Time.deltaTime;
     	}
         
-        pivot.Rotate(0, camX, 0);
+        pivot.Rotate(0, mouseCamX, 0);
+        pivot.Rotate(0, controllerCamX, 0);
         
         if (invertY){
-            pivot.Rotate(camY, 0, 0);
+            pivot.Rotate(mouseCamY, 0, 0);
+            pivot.Rotate(controllerCamY, 0, 0);
         } else {
-            pivot.Rotate(-camY, 0, 0);
+            pivot.Rotate(-mouseCamY, 0, 0);
+            pivot.Rotate(-controllerCamY, 0, 0);
         }
 
         if(pivot.rotation.eulerAngles.x > maxViewAngle && pivot.rotation.eulerAngles.x < 180f)
