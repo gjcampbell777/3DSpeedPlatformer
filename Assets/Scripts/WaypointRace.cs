@@ -39,6 +39,7 @@ public class WaypointRace : MonoBehaviour
     	script = player.GetComponent<PlayerController>();
     	size = 2;
     	level = 1;
+    	script.lives = 3;
     	script.finished = false;
         respawn();
         script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
@@ -56,6 +57,7 @@ public class WaypointRace : MonoBehaviour
     	{
 
     		waypointPlacement();
+    		script.lives = 3;
             level++;
             if(level > 3)
             {
@@ -74,7 +76,16 @@ public class WaypointRace : MonoBehaviour
         if(script.respawn == true)
         {
             respawn();
+            script.lives--;
             script.respawn = false;
+        }
+
+        if(script.lives == 0)
+        {
+            
+            script.lives = 3;
+            waypointPlacement();
+            
         }
 
         if(countdown + completionTime < Time.time)
