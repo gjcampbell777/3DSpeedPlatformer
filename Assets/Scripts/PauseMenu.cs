@@ -18,9 +18,14 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI LivesText;
 
+    public TextMeshProUGUI HighScoreText;
+    public TextMeshProUGUI HighTimeText;
+    public TextMeshProUGUI CongratsText;
+
     public GameObject pauseFirstButton;
     public GameObject gameOverFirstButton;
 
+    private bool highscore = false;
     private int gameOver = 0;
 
     // Update is called once per frame
@@ -111,18 +116,109 @@ public class PauseMenu : MonoBehaviour
     	{
     		ScoreText.text = "LEVEL: " + FloorLevel.escalation + "-" + FloorLevel.level;
     		TimeText.text = "TIME: " + Mathf.Round(FloorLevel.fullTime);
+
+    		if(FloorLevel.escalation > PlayerPrefs.GetInt("ObstacleHighFloor") || 
+    			(FloorLevel.escalation == PlayerPrefs.GetInt("ObstacleHighFloor") &&
+    			FloorLevel.level >= PlayerPrefs.GetInt("ObstacleHighLevel")))
+    		{
+
+    			if(FloorLevel.escalation > PlayerPrefs.GetInt("ObstacleHighFloor") || 
+    			FloorLevel.level > PlayerPrefs.GetInt("ObstacleHighLevel") ||
+    			(FloorLevel.level == PlayerPrefs.GetInt("ObstacleHighLevel") &&
+    			Mathf.Round(FloorLevel.fullTime) < PlayerPrefs.GetFloat("ObstacleHighTime")))
+    			{
+    				PlayerPrefs.SetInt("ObstacleHighFloor", FloorLevel.escalation);
+    				PlayerPrefs.SetInt("ObstacleHighLevel", FloorLevel.level);
+    				PlayerPrefs.SetFloat("ObstacleHighTime", Mathf.Round(FloorLevel.fullTime));
+
+    				highscore = true;
+    			}
+
+    		}
+
+    		if(highscore) 
+    		{
+    			CongratsText.text = "NEW" + "\n" + "HIGH SCORE!" + "\n" + "CONGRATS!";
+    		} else {
+    			CongratsText.text = "TRY AGAIN!";
+    		}
+
+    		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("ObstacleHighFloor")
+    			+ "-" + PlayerPrefs.GetInt("ObstacleHighLevel");
+    		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("ObstacleHighTime")); 
     	}
 
     	if(WaypointRace.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
     		TimeText.text = "TIME: " + Mathf.Round(WaypointRace.fullTime);
+
+    		if((WaypointRace.size - 1) > PlayerPrefs.GetInt("WaypointHighSize") || 
+    			((WaypointRace.size - 1) == PlayerPrefs.GetInt("WaypointHighSize") &&
+    			WaypointRace.level >= PlayerPrefs.GetInt("WaypointHighFloor")))
+    		{
+
+    			if((WaypointRace.size - 1) > PlayerPrefs.GetInt("WaypointHighSize") || 
+    			WaypointRace.level > PlayerPrefs.GetInt("WaypointHighFloor") ||
+    			(WaypointRace.level == PlayerPrefs.GetInt("WaypointHighFloor") &&
+    			Mathf.Round(WaypointRace.fullTime) < PlayerPrefs.GetFloat("WaypointHighTime")))
+    			{
+    				PlayerPrefs.SetInt("WaypointHighSize", (WaypointRace.size - 1));
+    				PlayerPrefs.SetInt("WaypointHighFloor", WaypointRace.level);
+    				PlayerPrefs.SetFloat("WaypointHighTime", Mathf.Round(WaypointRace.fullTime));
+
+    				highscore = true;
+    			}
+
+    		}
+
+    		if(highscore) 
+    		{
+    			CongratsText.text = "NEW" + "\n" + "HIGH SCORE!" + "\n" + "CONGRATS!";
+    		} else {
+    			CongratsText.text = "TRY AGAIN!";
+    		}
+
+    		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("WaypointHighSize")
+    			+ "-" + PlayerPrefs.GetInt("WaypointHighFloor");
+    		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("WaypointHighTime")); 
+
     	}
 
     	if(InfinityRunner.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
     		TimeText.text = "TIME: " + Mathf.Round(InfinityRunner.fullTime);
+
+    		if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
+    			(InfinityRunner.escalation == PlayerPrefs.GetInt("RunnerHighFloor") &&
+    			InfinityRunner.level >= PlayerPrefs.GetInt("RunnerHighLevel")))
+    		{
+
+    			if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
+    			InfinityRunner.level > PlayerPrefs.GetInt("RunnerHighLevel") ||
+    			(InfinityRunner.level == PlayerPrefs.GetInt("RunnerHighLevel") &&
+    			Mathf.Round(InfinityRunner.fullTime) < PlayerPrefs.GetFloat("RunnerHighTime")))
+    			{
+    				PlayerPrefs.SetInt("RunnerHighFloor", InfinityRunner.escalation);
+    				PlayerPrefs.SetInt("RunnerHighLevel", InfinityRunner.level);
+    				PlayerPrefs.SetFloat("RunnerHighTime", Mathf.Round(InfinityRunner.fullTime));
+
+    				highscore = true;
+    			}
+
+    		}
+
+    		if(highscore) 
+    		{
+    			CongratsText.text = "NEW" + "\n" + "HIGH SCORE!" + "\n" + "CONGRATS!";
+    		} else {
+    			CongratsText.text = "TRY AGAIN!";
+    		}
+
+    		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("RunnerHighFloor")
+    			+ "-" + PlayerPrefs.GetInt("RunnerHighLevel");
+    		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighTime")); 
     	}
 
     }
