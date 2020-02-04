@@ -18,6 +18,7 @@ public class FloorLevel : MonoBehaviour
     public GameObject[] easyObstacleList;
     public GameObject[] medObstaclelIst;
     public GameObject boundaries;
+    public GameObject[] cornerList;
 
 	private int selection = 0;
     
@@ -107,7 +108,7 @@ public class FloorLevel : MonoBehaviour
     	for(int i = 0; i < escalation; i++){
     		for(int j = 0; j < escalation; j++){
 
-                if(Random.Range(0, 20) != 0 || (i == (escalation-1) && j == (escalation-1) && i == j))
+                if(Random.Range(0, 10) != 0 || (i == (escalation-1) && j == (escalation-1) && i == j))
                 {
                     switch (level)
                     {
@@ -115,11 +116,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(0, easyObstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 7 || selection == 8)
                                 {
-                                    Instantiate(easyObstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(easyObstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
                                 }
 
                             } else {
@@ -130,11 +132,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(0, medObstaclelIst.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 15 || selection == 16)
                                 {
-                                    Instantiate(medObstaclelIst[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(medObstaclelIst[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(medObstaclelIst[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -144,11 +147,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(2, obstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 23 || selection == 24)
                                 {
-                                    Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -158,11 +162,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(2, obstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 23 || selection == 24)
                                 {
-                                    Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -171,7 +176,7 @@ public class FloorLevel : MonoBehaviour
                     }
                 }
 
-                if(Random.Range(0, 20) != 0 || (i == (escalation-1) && j == (escalation-1) && i == j))
+                if(Random.Range(0, 10) != 0 || (i == (escalation-1) && j == (escalation-1) && i == j))
                 {
                     
                     switch (level)
@@ -180,11 +185,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(0, easyObstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 7 || selection == 8)
                                 {
-                                    Instantiate(easyObstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(easyObstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(easyObstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -194,11 +200,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(0, medObstaclelIst.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 15 || selection == 16)
                                 {
-                                    Instantiate(medObstaclelIst[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(medObstaclelIst[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(medObstaclelIst[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -208,11 +215,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(2, obstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 23 || selection == 24)
                                 {
-                                    Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
@@ -222,11 +230,12 @@ public class FloorLevel : MonoBehaviour
                             selection = Random.Range(2, obstacleList.Length);
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
+                                selection = Random.Range(0, cornerList.Length);
                                 if(selection == 0 || selection == 23 || selection == 24)
                                 {
-                                    Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
-                                    Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
+                                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, 45, 0));
                                 }
                             } else {
                                 Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
