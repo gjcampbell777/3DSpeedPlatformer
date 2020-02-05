@@ -285,6 +285,12 @@ public class PlayerController : MonoBehaviour
             } else {
                 moveDirection.y = 0.0f;
             }
+
+            if (Input.GetButtonDown("Jump") && jump <= 1)
+            {
+                moveDirection.y = jumpHeight;
+                wallRunning = false;
+            }
         }
 
         velocity.x += moveDirection.x; 
