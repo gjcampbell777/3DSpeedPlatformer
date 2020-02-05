@@ -250,16 +250,19 @@ public class PauseMenu : MonoBehaviour
 
         if(FloorLevel.gameOver == true)
     	{
+    		FloorLevel.gameOver = false;
     		SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
     	}
 
     	if(WaypointRace.gameOver == true)
     	{
+    		WaypointRace.gameOver = false;
     		SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
     	}
 
     	if(InfinityRunner.gameOver == true)
     	{
+    		InfinityRunner.gameOver = false;
     		SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
     	}
 

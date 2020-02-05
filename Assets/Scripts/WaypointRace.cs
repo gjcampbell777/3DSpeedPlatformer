@@ -59,10 +59,12 @@ public class WaypointRace : MonoBehaviour
     		waypointPlacement();
     		script.lives = 3;
             level++;
+            completionTime += 15*(size-1);
             if(level > 3)
             {
             	size++;
             	level = 1;
+            	script.lives = 4;
             	script.respawn = true;
             	script.respawnTime = Time.time + 0.25f;
             	countdown = Time.time;
@@ -183,6 +185,8 @@ public class WaypointRace : MonoBehaviour
 
     void waypointPlacement()
     {
+
+    	script.lives = 3;
 
     	groundedScript.transform.position = new Vector3(
     			Random.Range(-100*size, 100*size), Random.Range(2, 10), Random.Range(-100*size, 100*size));
