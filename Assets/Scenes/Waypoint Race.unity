@@ -957,6 +957,9 @@ MonoBehaviour:
   ScoreText: {fileID: 428865310}
   TimeText: {fileID: 1037071376}
   LivesText: {fileID: 0}
+  HighScoreText: {fileID: 0}
+  HighTimeText: {fileID: 0}
+  CongratsText: {fileID: 0}
   pauseFirstButton: {fileID: 1040909057}
   gameOverFirstButton: {fileID: 0}
 --- !u!114 &963355971
@@ -1624,6 +1627,14 @@ MonoBehaviour:
   - {fileID: 5880479941740923922, guid: d8233406c7b546e419c918c028ec65af, type: 3}
   - {fileID: 3425233021637308467, guid: 9cfafec4161cf3c4f86a3824513846ac, type: 3}
   - {fileID: 2729766386463878366, guid: 258ef028e1596b043b63e318da3964f2, type: 3}
+  - {fileID: 2988591104085892534, guid: 03140737509422d4d8bb02e8666c8d00, type: 3}
+  - {fileID: 98210784416435151, guid: 22057d85c3bbde94ab02b5b32393a624, type: 3}
+  - {fileID: 1296726084903057492, guid: f8e2b3a239a50f94c97eab63e52c2015, type: 3}
+  - {fileID: 7886215492682801492, guid: 6b8db22eae7d69c41b7922d792a06409, type: 3}
+  - {fileID: 5799837134442839398, guid: 4b6e429c70b7144418db287eb6f6c1a7, type: 3}
+  - {fileID: 3161822268654064949, guid: e674258580d06a14bb9ffaffd3b53e7e, type: 3}
+  - {fileID: 1338270139686934427, guid: 6e8e48b5ed6ff224aa1325d2186d7153, type: 3}
+  - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
   boundaries: {fileID: 9181995847428758509, guid: cd8f80a3dcff4954598e8b72fd740734,
     type: 3}
 --- !u!4 &1228133912
