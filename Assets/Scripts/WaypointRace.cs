@@ -24,6 +24,7 @@ public class WaypointRace : MonoBehaviour
 	private int selection = 0;
 
 	RaycastHit hit;
+	Vector3 lastLocation;
     
     void Awake()
     {
@@ -34,6 +35,7 @@ public class WaypointRace : MonoBehaviour
     void Start()
     {
 
+    	lastLocation = new Vector3(0,0,0);
     	fullTime = Time.time;
     	gameOver = false;
     	script = player.GetComponent<PlayerController>();
@@ -56,6 +58,7 @@ public class WaypointRace : MonoBehaviour
     	if(script.finished == true)
     	{
 
+    		lastLocation = groundedScript.transform.position;
     		waypointPlacement();
     		script.lives = 3;
             level++;
@@ -86,6 +89,7 @@ public class WaypointRace : MonoBehaviour
         {
             
             script.lives = 3;
+            lastLocation = groundedScript.transform.position;
             waypointPlacement();
             
         }
@@ -193,6 +197,12 @@ public class WaypointRace : MonoBehaviour
 
     	if((groundedScript.transform.position.x < 100 && groundedScript.transform.position.x > -100)
     		|| (groundedScript.transform.position.z < 100 && groundedScript.transform.position.z > -100))
+    	{
+    		waypointPlacement();
+    	}
+
+    	if((groundedScript.transform.position.x < lastLocation.x+50 && groundedScript.transform.position.x > lastLocation.x-50
+    			&& groundedScript.transform.position.z < lastLocation.z+50 && groundedScript.transform.position.z > lastLocation.z-50))
     	{
     		waypointPlacement();
     	}
