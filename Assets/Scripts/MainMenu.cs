@@ -9,8 +9,12 @@ public class MainMenu : MonoBehaviour
     
 	public GameObject menuFirstButton;
     public GameObject skinsFirstButton;
+    public GameObject highscoreFirstButton;
+    public GameObject gameinfoFirstButton;
     public GameObject optionsFirstButton;
     public GameObject skinsBackButton;
+    public GameObject highscoreBackButton;
+    public GameObject gameinfoBackButton;
     public GameObject optionsBackButton;
 
     void Start()
@@ -34,6 +38,30 @@ public class MainMenu : MonoBehaviour
 	{
 		EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(skinsBackButton);
+	}
+
+	public void Highscores()
+	{
+		EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(highscoreFirstButton);
+	}
+
+	public void BackHighscores()
+	{
+		EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(highscoreBackButton);
+	}
+
+	public void GameInfo()
+	{
+		EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(gameinfoFirstButton);
+	}
+
+	public void BackGameInfo()
+	{
+		EventSystem.current.SetSelectedGameObject(null);
+    	EventSystem.current.SetSelectedGameObject(gameinfoBackButton);
 	}
 
 	public void Options()
