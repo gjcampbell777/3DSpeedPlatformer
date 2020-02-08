@@ -21,7 +21,7 @@ public class InfinityRunner : MonoBehaviour
     public GameObject boundaries;
 
     private int selection;
-	private float countdownTime = 5.0f;
+	private float countdownTime = 3.0f;
 	private float spawnTime = 0.0f;
 
 	private Transform lastSpawn;
@@ -54,7 +54,7 @@ public class InfinityRunner : MonoBehaviour
 
     	distance = player.transform.position.z;
 
-    	if(spawnTime + countdownTime < Time.time)
+    	if(distance > lastSpawn.position.z)
     	{
 
             level++;
@@ -111,14 +111,16 @@ public class InfinityRunner : MonoBehaviour
             wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(escalation)), 1, wallTwo.transform.localScale.z*(0.25f*escalation));
 
             lastSpawn = spawn.transform;
+    	}
 
-            spawnTime = Time.time;
+    	if(spawnTime + countdownTime < Time.time)
+    	{
+    		spawnTime = Time.time;
 
             GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
     		for(int i = 0; i < 3; i++) {
         		GameObject.Destroy(oldObjects[i]);
-    		}
-
+        	}
     	}
 
         if(script.respawn == true)
