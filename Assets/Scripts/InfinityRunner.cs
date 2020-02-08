@@ -55,7 +55,12 @@ public class InfinityRunner : MonoBehaviour
 
     	distance = player.transform.position.z;
 
-    	if(distance > lastSpawn.position.z)
+    	if(!lastSpawn)
+    	{
+    		lastSpawn = player.transform;
+    	}
+    	
+    	if(distance >= lastSpawn.position.z)
     	{
 
             level++;
@@ -64,7 +69,7 @@ public class InfinityRunner : MonoBehaviour
                 escalation++;
                 level = 1;
 
-                if(escalation > 7 && countdownTime > 1.5f)
+                if(escalation > 7 && countdownTime > 2.0f)
                 {
                 	countdownTime -= 0.25f;
                 }
@@ -124,14 +129,17 @@ public class InfinityRunner : MonoBehaviour
             wallOne.transform.localScale = new Vector3(wallOne.transform.localScale.x*(0.25f*(size)), 1, wallOne.transform.localScale.z*(0.25f*size));
             wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(size)), 1, wallTwo.transform.localScale.z*(0.25f*size));
 
+
             lastSpawn = spawn.transform;
+            
     	}
+
+    	GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
 
     	if(spawnTime + countdownTime < Time.time)
     	{
     		spawnTime = Time.time;
 
-            GameObject[] oldObjects = GameObject.FindGameObjectsWithTag("Environment");
     		for(int i = 0; i < 3; i++) {
         		GameObject.Destroy(oldObjects[i]);
         	}
@@ -162,8 +170,8 @@ public class InfinityRunner : MonoBehaviour
     void respawn()
     {
 
-        script.transform.position = new Vector3(0, 10, lastSpawn.transform.position.z);
-        script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
+		script.transform.position = new Vector3(0, 11, lastSpawn.position.z+1);
+    	script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
 
     }
 
