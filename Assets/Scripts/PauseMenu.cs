@@ -17,6 +17,7 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI LivesText;
+    public TextMeshProUGUI MiddleText;
 
     public TextMeshProUGUI HighScoreText;
     public TextMeshProUGUI HighTimeText;
@@ -50,6 +51,7 @@ public class PauseMenu : MonoBehaviour
     	{
     		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
     		LivesText.text = "LIVES: " + PlayerController.shownLives;
+    		MiddleText.text = "DISTANCE: " + Mathf.Round(InfinityRunner.distance);
     	}
 
     	if(Input.GetButtonDown("Pause"))
@@ -188,7 +190,7 @@ public class PauseMenu : MonoBehaviour
     	if(InfinityRunner.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
-    		TimeText.text = "TIME: " + Mathf.Round(InfinityRunner.fullTime);
+    		TimeText.text = "DISTANCE: " + Mathf.Round(InfinityRunner.distance);
 
     		if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
     			(InfinityRunner.escalation == PlayerPrefs.GetInt("RunnerHighFloor") &&
@@ -198,11 +200,11 @@ public class PauseMenu : MonoBehaviour
     			if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
     			InfinityRunner.level > PlayerPrefs.GetInt("RunnerHighLevel") ||
     			(InfinityRunner.level == PlayerPrefs.GetInt("RunnerHighLevel") &&
-    			Mathf.Round(InfinityRunner.fullTime) < PlayerPrefs.GetFloat("RunnerHighTime")))
+    			Mathf.Round(InfinityRunner.distance) > PlayerPrefs.GetFloat("RunnerHighDistance")))
     			{
     				PlayerPrefs.SetInt("RunnerHighFloor", InfinityRunner.escalation);
     				PlayerPrefs.SetInt("RunnerHighLevel", InfinityRunner.level);
-    				PlayerPrefs.SetFloat("RunnerHighTime", Mathf.Round(InfinityRunner.fullTime));
+    				PlayerPrefs.SetFloat("RunnerHighDistance", Mathf.Round(InfinityRunner.distance));
 
     				highscore = true;
     			}
@@ -218,7 +220,7 @@ public class PauseMenu : MonoBehaviour
 
     		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("RunnerHighFloor")
     			+ "-" + PlayerPrefs.GetInt("RunnerHighLevel");
-    		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighTime")); 
+    		HighTimeText.text = "HIGH SCORE DISTANCE: " + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighDistance")); 
     	}
 
     }

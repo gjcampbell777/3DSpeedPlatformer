@@ -12,6 +12,7 @@ public class InfinityRunner : MonoBehaviour
 	public static int escalation = 1;
     public static int level = 1;
     public static float fullTime;
+    public static float distance;
 	public GameObject player;
 	public PlayerController script;
 	public GameObject[] obstacleList;
@@ -50,6 +51,8 @@ public class InfinityRunner : MonoBehaviour
 
     void Update()
     {
+
+    	distance = player.transform.position.z;
 
     	if(spawnTime + countdownTime < Time.time)
     	{
