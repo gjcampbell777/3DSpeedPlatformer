@@ -299,11 +299,15 @@ public class PlayerController : MonoBehaviour
         if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || (Input.GetButton("Stop") || Input.GetAxis("Stop") == 1.0f)){
 
             //Remove or "lower" friction to add an 'ice' effect
-            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
-            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, 0.1f);
+            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, 0.1f);
             maxSpeed = 25;
 
         }
+
+        //Remove or "lower" friction to add an 'ice' effect
+            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
+            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
         if(characterController.velocity == new Vector3(0, 0, 0))
         {
