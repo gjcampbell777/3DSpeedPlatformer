@@ -133,7 +133,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 15 || selection == 16)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
@@ -148,7 +148,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 23 || selection == 24)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
@@ -163,7 +163,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 23 || selection == 24)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), 100*j+50),  Quaternion.identity);
                                 } else {
@@ -201,7 +201,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 15 || selection == 16)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
@@ -216,7 +216,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 23 || selection == 24)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
@@ -231,7 +231,7 @@ public class FloorLevel : MonoBehaviour
                             if(i == (escalation-1) && j == (escalation-1) && i == j)
                             {
                                 selection = Random.Range(0, cornerList.Length);
-                                if(selection == 0 || selection == 23 || selection == 24)
+                                if(selection == 0 || selection == 7 || selection == 8)
                                 {
                                     Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), -100*j-50),  Quaternion.identity);
                                 } else {
