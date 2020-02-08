@@ -21,6 +21,7 @@ public class InfinityRunner : MonoBehaviour
     public GameObject boundaries;
 
     private int selection;
+    private int size;
 	private float countdownTime = 3.0f;
 	private float spawnTime = 0.0f;
 
@@ -62,11 +63,24 @@ public class InfinityRunner : MonoBehaviour
             {
                 escalation++;
                 level = 1;
+
+                if(escalation > 7 && countdownTime > 1.5f)
+                {
+                	countdownTime -= 0.25f;
+                }
+
             }
 
             GameObject spawn;
             GameObject wallOne;
             GameObject wallTwo;
+
+            if(escalation > 7)
+            {
+            	size = 7;
+            } else {
+            	size = escalation;
+            }
 
             if(level == 1)
             {
@@ -74,41 +88,41 @@ public class InfinityRunner : MonoBehaviour
             	if(escalation > 2 && escalation < 5)
             	{
             		selection = Random.Range(0, medObstaclelIst.Length);
-            		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
             	} else if(escalation >= 5) {
             		selection = Random.Range(0, obstacleList.Length);
-            		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
             	} else {
             		selection = Random.Range(0, easyObstacleList.Length);
-            		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
 
             	}
 
-            	wallOne = Instantiate(boundaries, new Vector3(((25f*(escalation)))/2, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
-            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(escalation)))/-2, 0, lastSpawn.transform.position.z+(25*escalation)-12.5f), Quaternion.identity) as GameObject;
+            	wallOne = Instantiate(boundaries, new Vector3(((25f*(size)))/2, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
+            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(size)))/-2, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
 
             } else {
 
             	if(escalation > 2 && escalation < 5)
             	{
             		selection = Random.Range(0, medObstaclelIst.Length);
-            		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
             	} else if(escalation >= 5) {
             		selection = Random.Range(0, obstacleList.Length);
-            		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
             	} else {
             		selection = Random.Range(0, easyObstacleList.Length);
-            		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+            		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
             	}
 
-            	wallOne = Instantiate(boundaries, new Vector3(((25f*(escalation)))/2, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
-            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(escalation)))/-2, 0, lastSpawn.transform.position.z+(25*escalation)), Quaternion.identity) as GameObject;
+            	wallOne = Instantiate(boundaries, new Vector3(((25f*(size)))/2, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
+            	wallTwo = Instantiate(boundaries, new Vector3(((25f*(size)))/-2, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
 
             }
             
-            spawn.transform.localScale = new Vector3(spawn.transform.localScale.x*(0.25f*(escalation)), 1, spawn.transform.localScale.z*(0.25f*escalation));
-            wallOne.transform.localScale = new Vector3(wallOne.transform.localScale.x*(0.25f*(escalation)), 1, wallOne.transform.localScale.z*(0.25f*escalation));
-            wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(escalation)), 1, wallTwo.transform.localScale.z*(0.25f*escalation));
+            spawn.transform.localScale = new Vector3(spawn.transform.localScale.x*(0.25f*(size)), 1, spawn.transform.localScale.z*(0.25f*size));
+            wallOne.transform.localScale = new Vector3(wallOne.transform.localScale.x*(0.25f*(size)), 1, wallOne.transform.localScale.z*(0.25f*size));
+            wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(size)), 1, wallTwo.transform.localScale.z*(0.25f*size));
 
             lastSpawn = spawn.transform;
     	}
@@ -130,7 +144,7 @@ public class InfinityRunner : MonoBehaviour
             script.respawn = false;
         }
 
-        if(script.lives == 0)
+        if(script.lives <= 0)
         {
             
             script.lives = -1;
