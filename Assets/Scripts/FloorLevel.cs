@@ -85,7 +85,7 @@ public class FloorLevel : MonoBehaviour
     void respawn()
     {
 
-        script.transform.position = new Vector3((100*escalation)+50, 2, (100*escalation)+50);
+        script.transform.position = new Vector3((100*escalation)+50, 7, (100*escalation)+50);
         script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
 
     }
@@ -320,8 +320,8 @@ public class FloorLevel : MonoBehaviour
 
     	}
 
-    	Instantiate(obstacleList[0], new Vector3((100*escalation)+50, 0, (100*escalation)+50),  Quaternion.identity);
-    	Instantiate(obstacleList[1], new Vector3(-((100*escalation)+50), 0, -((100*escalation)+50)),  Quaternion.identity);
+    	Instantiate(obstacleList[0], new Vector3((100*escalation)+50, 5, (100*escalation)+50),  Quaternion.identity);
+    	Instantiate(obstacleList[1], new Vector3(-((100*escalation)+50), -10, -((100*escalation)+50)),  Quaternion.identity);
 
         script.finished = false;
     }
