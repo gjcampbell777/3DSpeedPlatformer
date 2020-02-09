@@ -1552,7 +1552,6 @@ MonoBehaviour:
   ScoreText: {fileID: 90025025}
   TimeText: {fileID: 90025025}
   LivesText: {fileID: 1109346523}
-  MiddleText: {fileID: 664696629}
   HighScoreText: {fileID: 0}
   HighTimeText: {fileID: 0}
   CongratsText: {fileID: 0}
@@ -2538,6 +2537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af278bae524228a41b70f1e4870c0474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distance: 0
   player: {fileID: 1885424378}
   script: {fileID: 1885424379}
   obstacleList:
@@ -2563,11 +2563,12 @@ MonoBehaviour:
   - {fileID: 2905477253455755942, guid: cc2991a7dd7e57d4b89e9b7cc0d29440, type: 3}
   - {fileID: 1513878555246645949, guid: 6b9a5d86a3ddf9f49aaf45fb830472ab, type: 3}
   - {fileID: 2684093654972248724, guid: eea6f26bb215de34296b64f3d4519e13, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
   - {fileID: 1338270139686934427, guid: 6e8e48b5ed6ff224aa1325d2186d7153, type: 3}
   - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
   - {fileID: 2988591104085892534, guid: 03140737509422d4d8bb02e8666c8d00, type: 3}
   - {fileID: 98210784416435151, guid: 22057d85c3bbde94ab02b5b32393a624, type: 3}
+  - {fileID: 665153724702688003, guid: 3ad84dc4c084fc0458bf98f2f25c9c4b, type: 3}
   easyObstacleList:
   - {fileID: 3821658720673687754, guid: d0164d7ee6ae94349b5fb425366d9805, type: 3}
   - {fileID: 5412598120349462372, guid: a7a9bd40273944b4694f6dfb9f5a76fd, type: 3}
@@ -2579,7 +2580,7 @@ MonoBehaviour:
   - {fileID: 986717874393107686, guid: da5fd426b6efd1842a8e9be671efb9a0, type: 3}
   - {fileID: 3425233021637308467, guid: 9cfafec4161cf3c4f86a3824513846ac, type: 3}
   - {fileID: 2113769983520899469, guid: 9eafff82623c2f7468270f2c9e3d677a, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
   - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
   - {fileID: 2905477253455755942, guid: cc2991a7dd7e57d4b89e9b7cc0d29440, type: 3}
   - {fileID: 2709827901078906258, guid: ff7c3b7d52b8de54e9917c40c82aecc4, type: 3}
@@ -2609,10 +2610,11 @@ MonoBehaviour:
   - {fileID: 8306103689241861471, guid: 4da44b3a63b9980499a243d4944c994c, type: 3}
   - {fileID: 1513878555246645949, guid: 6b9a5d86a3ddf9f49aaf45fb830472ab, type: 3}
   - {fileID: 5799837134442839398, guid: 4b6e429c70b7144418db287eb6f6c1a7, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
   - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
   - {fileID: 2988591104085892534, guid: 03140737509422d4d8bb02e8666c8d00, type: 3}
   - {fileID: 98210784416435151, guid: 22057d85c3bbde94ab02b5b32393a624, type: 3}
+  - {fileID: 665153724702688003, guid: 3ad84dc4c084fc0458bf98f2f25c9c4b, type: 3}
   boundaries: {fileID: 9181995847428758509, guid: cd8f80a3dcff4954598e8b72fd740734,
     type: 3}
 --- !u!1 &1834093088

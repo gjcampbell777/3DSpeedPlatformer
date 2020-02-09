@@ -1307,7 +1307,6 @@ MonoBehaviour:
   ScoreText: {fileID: 1455233009}
   TimeText: {fileID: 1455233009}
   LivesText: {fileID: 1368792133}
-  MiddleText: {fileID: 0}
   HighScoreText: {fileID: 0}
   HighTimeText: {fileID: 0}
   CongratsText: {fileID: 0}
@@ -2720,8 +2719,8 @@ MonoBehaviour:
   - {fileID: 1202895342483462289, guid: 55bba97c61b57514dace753c99546a63, type: 3}
   - {fileID: 3674920361173244205, guid: c9bae7f8721bf0449a8f2b1e53301871, type: 3}
   - {fileID: 8603837920965300021, guid: 4fab5bfd9dfb3dc48a4138c69ae3b411, type: 3}
-  - {fileID: 6958354074955014502, guid: 576d6227a32a4ef468e3ba3d4146f8df, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
+  - {fileID: 665153724702688003, guid: 3ad84dc4c084fc0458bf98f2f25c9c4b, type: 3}
   - {fileID: 4508217524918111061, guid: 974e0a3ecc779f64cb2866cd68650407, type: 3}
   - {fileID: 1821288648812870990, guid: 5d8f4307c13dc6142bece8e0b1f30bae, type: 3}
   - {fileID: 8014827120313548368, guid: 20d028e2f45dd134fbaf292705530768, type: 3}
@@ -2737,6 +2736,7 @@ MonoBehaviour:
   - {fileID: 3161822268654064949, guid: e674258580d06a14bb9ffaffd3b53e7e, type: 3}
   - {fileID: 1338270139686934427, guid: 6e8e48b5ed6ff224aa1325d2186d7153, type: 3}
   - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
+  - {fileID: 1523146265254250313, guid: 4ffda9f561fdff5408763d8e8bdc4ed6, type: 3}
   easyObstacleList:
   - {fileID: 3821658720673687754, guid: d0164d7ee6ae94349b5fb425366d9805, type: 3}
   - {fileID: 5412598120349462372, guid: a7a9bd40273944b4694f6dfb9f5a76fd, type: 3}
@@ -2769,8 +2769,8 @@ MonoBehaviour:
   - {fileID: 2113769983520899469, guid: 9eafff82623c2f7468270f2c9e3d677a, type: 3}
   - {fileID: 8603837920965300021, guid: 4fab5bfd9dfb3dc48a4138c69ae3b411, type: 3}
   - {fileID: 3674920361173244205, guid: c9bae7f8721bf0449a8f2b1e53301871, type: 3}
-  - {fileID: 6958354074955014502, guid: 576d6227a32a4ef468e3ba3d4146f8df, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
+  - {fileID: 665153724702688003, guid: 3ad84dc4c084fc0458bf98f2f25c9c4b, type: 3}
   - {fileID: 4508217524918111061, guid: 974e0a3ecc779f64cb2866cd68650407, type: 3}
   - {fileID: 8014827120313548368, guid: 20d028e2f45dd134fbaf292705530768, type: 3}
   - {fileID: 1236683392463883085, guid: b49833699123fc74886c706b80b7cbfe, type: 3}
@@ -2785,6 +2785,7 @@ MonoBehaviour:
   - {fileID: 3161822268654064949, guid: e674258580d06a14bb9ffaffd3b53e7e, type: 3}
   - {fileID: 1338270139686934427, guid: 6e8e48b5ed6ff224aa1325d2186d7153, type: 3}
   - {fileID: 4589213692722742485, guid: f2127aac0c5addb4ab388991a33e8299, type: 3}
+  - {fileID: 1523146265254250313, guid: 4ffda9f561fdff5408763d8e8bdc4ed6, type: 3}
   boundaries: {fileID: 9181995847428758509, guid: cd8f80a3dcff4954598e8b72fd740734,
     type: 3}
   cornerList:
@@ -2794,7 +2795,7 @@ MonoBehaviour:
   - {fileID: 3161822268654064949, guid: e674258580d06a14bb9ffaffd3b53e7e, type: 3}
   - {fileID: 5880479941740923922, guid: d8233406c7b546e419c918c028ec65af, type: 3}
   - {fileID: 4508217524918111061, guid: 974e0a3ecc779f64cb2866cd68650407, type: 3}
-  - {fileID: 7301985093577449120, guid: dbf6fd673e9b7944f9f526400284d0af, type: 3}
+  - {fileID: 9161455733412811721, guid: 7f77ea79765807545a09bda3db6d7f58, type: 3}
   - {fileID: 8014827120313548368, guid: 20d028e2f45dd134fbaf292705530768, type: 3}
   - {fileID: 1236683392463883085, guid: b49833699123fc74886c706b80b7cbfe, type: 3}
   - {fileID: 2905477253455755942, guid: cc2991a7dd7e57d4b89e9b7cc0d29440, type: 3}

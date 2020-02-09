@@ -7535,7 +7535,6 @@ MonoBehaviour:
   ScoreText: {fileID: 2045279608}
   TimeText: {fileID: 13294516}
   LivesText: {fileID: 13294516}
-  MiddleText: {fileID: 0}
   HighScoreText: {fileID: 1634177343}
   HighTimeText: {fileID: 232712737}
   CongratsText: {fileID: 1992981387}
