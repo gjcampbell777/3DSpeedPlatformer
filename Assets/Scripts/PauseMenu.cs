@@ -25,6 +25,8 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseFirstButton;
     public GameObject gameOverFirstButton;
 
+    public AudioSource music;
+
     private bool highscore = false;
     private int gameOver = 0;
 
@@ -90,6 +92,7 @@ public class PauseMenu : MonoBehaviour
     	Time.timeScale = 1f;
     	GameIsPaused = false;
     	GameIsOver = false;
+    	music.Play();
     }
 
     void Pause()
@@ -101,6 +104,7 @@ public class PauseMenu : MonoBehaviour
     	GameIsPaused = true;
     	EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(pauseFirstButton);
+    	music.Pause();
     }
 
     void GameOver()
@@ -111,6 +115,7 @@ public class PauseMenu : MonoBehaviour
         gameOverUI.SetActive(true);
     	Time.timeScale = 0f;
     	GameIsPaused = true;
+    	music.Pause();
 
     	if(FloorLevel.gameOver == true)
     	{

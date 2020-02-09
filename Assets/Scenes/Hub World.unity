@@ -7540,6 +7540,7 @@ MonoBehaviour:
   CongratsText: {fileID: 1992981387}
   pauseFirstButton: {fileID: 312387577}
   gameOverFirstButton: {fileID: 630916946}
+  music: {fileID: 2074891275}
 --- !u!1 &1728628295
 GameObject:
   m_ObjectHideFlags: 0
