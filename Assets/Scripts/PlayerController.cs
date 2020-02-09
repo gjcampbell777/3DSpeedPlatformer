@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     public Transform pivot;
     public GameObject playerModel;
     public AudioSource jumpNoise;
+    public AudioSource respawnNoise;
 
     private bool wallRunning = false;
     private bool diving = false;
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
 
             finished = true;
             respawnTime = Time.time;
+            respawnNoise.Play();
         }
 
         if(hit.gameObject.tag == "Waypoint")
@@ -93,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
             finished = true;
             respawnTime = Time.time;
+            respawnNoise.Play();
             
         }
 
@@ -100,18 +103,21 @@ public class PlayerController : MonoBehaviour
         {
             SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
             respawnTime = Time.time;
+            respawnNoise.Play();
         }
 
         if(hit.gameObject.tag == "Waypoint Portal")
         {
             SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
             respawnTime = Time.time;
+            respawnNoise.Play();
         }
 
         if(hit.gameObject.tag == "Infinite Portal")
         {
             SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
             respawnTime = Time.time;
+            respawnNoise.Play();
         }
         
     }
@@ -131,6 +137,7 @@ public class PlayerController : MonoBehaviour
             respawn = true;
             respawnTime = Time.time;
             shownLives--;
+            respawnNoise.Play();
 
             if (SceneManager.GetActiveScene().name == "Hub World")
             {
