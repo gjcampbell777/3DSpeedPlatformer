@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed;
     public Transform pivot;
     public GameObject playerModel;
+    public AudioSource jumpNoise;
 
     private bool wallRunning = false;
     private bool diving = false;
@@ -252,6 +253,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection.y = jumpHeight;
             jump++;
+            jumpNoise.Play();
         }
 
         if (characterController.collisionFlags == CollisionFlags.None)
