@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public GameObject playerModel;
     public AudioSource jumpNoise;
     public AudioSource respawnNoise;
+    public Material[] characterSkins;
+    public static int characterSelect = 0;
+    public GameObject playerSkin;
 
     private bool wallRunning = false;
     private bool diving = false;
@@ -52,6 +55,7 @@ public class PlayerController : MonoBehaviour
     float halfSec = 0.5f;
     float quarterSec = 0.25f;
     float tenthSec = 0.1f;
+    MeshRenderer mr;
 
     void Start()
     {
@@ -67,6 +71,9 @@ public class PlayerController : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        mr = playerSkin.GetComponent<MeshRenderer>();
+        mr.material =  characterSkins[characterSelect];
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -272,6 +279,12 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
+        }
+
+        if(Input.GetButtonDown("Character Swap"))
+        {
+            characterSelect = Random.Range(0, characterSkins.Length);
+            mr.material =  characterSkins[characterSelect];
         }
 
         if (Input.GetButtonDown("Jump") && jump <= 1)

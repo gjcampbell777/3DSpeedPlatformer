@@ -2671,6 +2671,9 @@ MonoBehaviour:
   playerModel: {fileID: 392444983}
   jumpNoise: {fileID: 1860511536}
   respawnNoise: {fileID: 1436563779}
+  characterSkins:
+  - {fileID: 2100000, guid: 8d5a324e1b6a0d44c875fdbd475e22b9, type: 2}
+  playerSkin: {fileID: 392444983}
   respawnTime: 0
 --- !u!143 &1759649037
 CharacterController:
