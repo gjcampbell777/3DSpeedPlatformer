@@ -101,23 +101,41 @@ public class PlayerController : MonoBehaviour
 
         if(hit.gameObject.tag == "Obstacle Portal")
         {
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
             SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
             respawnTime = Time.time;
             respawnNoise.Play();
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
         }
 
         if(hit.gameObject.tag == "Waypoint Portal")
         {
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
             SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
             respawnTime = Time.time;
             respawnNoise.Play();
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
         }
 
         if(hit.gameObject.tag == "Infinite Portal")
         {
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
             SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
             respawnTime = Time.time;
             respawnNoise.Play();
+            FloorLevel.gameOver = false;
+            WaypointRace.gameOver = false;
+            InfinityRunner.gameOver = false;
         }
         
     }
