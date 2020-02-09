@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 [System.Serializable]
 
@@ -20,11 +21,13 @@ public class WaypointRace : MonoBehaviour
 	public Waypoint groundedScript;
 	public GameObject[] obstacleList;
 	public GameObject boundaries;
+	public GameObject WarningText;
 
 	private int selection = 0;
 
 	RaycastHit hit;
 	Vector3 lastLocation;
+	float wanringCountdown;
     
     void Awake()
     {
@@ -49,11 +52,17 @@ public class WaypointRace : MonoBehaviour
     	waypointPlacement();
     	countdown = Time.time;
     	completionTime = 60;
+    	WarningText.SetActive(false);
 
     }
 
     void Update()
     {
+
+    	if(wanringCountdown + 5.0f < Time.time)
+    	{
+    		WarningText.SetActive(false);
+    	}
 
     	if(script.finished == true)
     	{
@@ -191,6 +200,9 @@ public class WaypointRace : MonoBehaviour
     {
 
     	script.lives = 3;
+
+    	WarningText.SetActive(true);
+    	wanringCountdown = Time.time;
 
     	groundedScript.transform.position = new Vector3(
     			Random.Range(-100*size, 100*size), Random.Range(2, 10), Random.Range(-100*size, 100*size));
