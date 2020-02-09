@@ -12,7 +12,7 @@ public class InfinityRunner : MonoBehaviour
 	public static int escalation = 1;
     public static int level = 1;
     public static float fullTime;
-    public static float distance;
+    public float distance;
 	public GameObject player;
 	public PlayerController script;
 	public GameObject[] obstacleList;
@@ -35,7 +35,8 @@ public class InfinityRunner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fullTime = Time.time;
+
+    	fullTime = Time.time;
         spawnTime = Time.time;
         gameOver = false;
     	script = player.GetComponent<PlayerController>();

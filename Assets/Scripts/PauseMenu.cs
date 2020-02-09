@@ -17,7 +17,6 @@ public class PauseMenu : MonoBehaviour
     public TextMeshProUGUI ScoreText;
     public TextMeshProUGUI TimeText;
     public TextMeshProUGUI LivesText;
-    public TextMeshProUGUI MiddleText;
 
     public TextMeshProUGUI HighScoreText;
     public TextMeshProUGUI HighTimeText;
@@ -51,7 +50,6 @@ public class PauseMenu : MonoBehaviour
     	{
     		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
     		LivesText.text = "LIVES: " + PlayerController.shownLives;
-    		MiddleText.text = "DISTANCE: " + Mathf.Round(InfinityRunner.distance);
     	}
 
     	if(Input.GetButtonDown("Pause"))
@@ -148,9 +146,7 @@ public class PauseMenu : MonoBehaviour
     		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("ObstacleHighFloor")
     			+ "-" + PlayerPrefs.GetInt("ObstacleHighLevel");
     		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("ObstacleHighTime")); 
-    	}
-
-    	if(WaypointRace.gameOver == true)
+    	} else if(WaypointRace.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + (WaypointRace.size - 1) + "-" + WaypointRace.level;
     		TimeText.text = "TIME: " + Mathf.Round(WaypointRace.fullTime);
@@ -185,26 +181,24 @@ public class PauseMenu : MonoBehaviour
     			+ "-" + PlayerPrefs.GetInt("WaypointHighFloor");
     		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("WaypointHighTime")); 
 
-    	}
-
-    	if(InfinityRunner.gameOver == true)
+    	} else if(InfinityRunner.gameOver == true)
     	{
     		ScoreText.text = "LEVEL: " + InfinityRunner.escalation + "-" + InfinityRunner.level;
-    		TimeText.text = "DISTANCE: " + Mathf.Round(InfinityRunner.distance);
+    		TimeText.text = "TIME: " + Mathf.Round(InfinityRunner.fullTime);
 
     		if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
     			(InfinityRunner.escalation == PlayerPrefs.GetInt("RunnerHighFloor") &&
-    			InfinityRunner.level >= PlayerPrefs.GetInt("RunnerHighLevel")))
+    			InfinityRunner.level >= PlayerPrefs.GetInt("RunnerHighTime")))
     		{
 
     			if(InfinityRunner.escalation > PlayerPrefs.GetInt("RunnerHighFloor") || 
     			InfinityRunner.level > PlayerPrefs.GetInt("RunnerHighLevel") ||
     			(InfinityRunner.level == PlayerPrefs.GetInt("RunnerHighLevel") &&
-    			Mathf.Round(InfinityRunner.distance) > PlayerPrefs.GetFloat("RunnerHighDistance")))
+    			Mathf.Round(InfinityRunner.fullTime) < PlayerPrefs.GetFloat("RunnerHighTime")))
     			{
     				PlayerPrefs.SetInt("RunnerHighFloor", InfinityRunner.escalation);
     				PlayerPrefs.SetInt("RunnerHighLevel", InfinityRunner.level);
-    				PlayerPrefs.SetFloat("RunnerHighDistance", Mathf.Round(InfinityRunner.distance));
+    				PlayerPrefs.SetFloat("RunnerHighTime", Mathf.Round(InfinityRunner.fullTime));
 
     				highscore = true;
     			}
@@ -220,7 +214,7 @@ public class PauseMenu : MonoBehaviour
 
     		HighScoreText.text = "HIGH SCORE: " + PlayerPrefs.GetInt("RunnerHighFloor")
     			+ "-" + PlayerPrefs.GetInt("RunnerHighLevel");
-    		HighTimeText.text = "HIGH SCORE DISTANCE: " + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighDistance")); 
+    		HighTimeText.text = "HIGH SCORE TIME: " + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighTime")); 
     	}
 
     }
@@ -232,6 +226,9 @@ public class PauseMenu : MonoBehaviour
     	SceneManager.LoadScene("Hub World", LoadSceneMode.Single);
     	Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        FloorLevel.gameOver = false;
+		WaypointRace.gameOver = false;
+		InfinityRunner.gameOver = false;
     }
 
     public void LoadMenu()
@@ -253,17 +250,19 @@ public class PauseMenu : MonoBehaviour
         if(FloorLevel.gameOver == true)
     	{
     		FloorLevel.gameOver = false;
-    		SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
-    	}
-
-    	if(WaypointRace.gameOver == true)
-    	{
     		WaypointRace.gameOver = false;
-    		SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
-    	}
-
-    	if(InfinityRunner.gameOver == true)
+    		InfinityRunner.gameOver = false;
+    		SceneManager.LoadScene("Floor Level", LoadSceneMode.Single);
+    	} else if(WaypointRace.gameOver == true)
     	{
+    		FloorLevel.gameOver = false;
+    		WaypointRace.gameOver = false;
+    		InfinityRunner.gameOver = false;
+    		SceneManager.LoadScene("Waypoint Race", LoadSceneMode.Single);
+    	} else if(InfinityRunner.gameOver == true)
+    	{
+    		FloorLevel.gameOver = false;
+    		WaypointRace.gameOver = false;
     		InfinityRunner.gameOver = false;
     		SceneManager.LoadScene("Infinity Runner", LoadSceneMode.Single);
     	}

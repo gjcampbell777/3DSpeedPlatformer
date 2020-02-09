@@ -27,7 +27,7 @@ public class HighScore : MonoBehaviour
 
 		InfinityScoreText.text = "HIGH SCORE: " + "\n" + PlayerPrefs.GetInt("RunnerHighFloor")
 			+ "-" + PlayerPrefs.GetInt("RunnerHighLevel");
-		InfinityTimeText.text = "HIGH SCORE DISTANCE: " + "\n" + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighDistance")); 
+		InfinityTimeText.text = "HIGH SCORE TIME: " + "\n" + Mathf.Round(PlayerPrefs.GetFloat("RunnerHighTime")); 
 
     }
 }
