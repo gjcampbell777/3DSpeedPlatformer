@@ -38,7 +38,7 @@ public class FloorLevel : MonoBehaviour
         script.lives = 3;
     	script.finished = false;
         respawn();
-        script.pivot.transform.Rotate(0.0f, 225.0f, 0.0f, Space.Self);
+        script.pivot.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
     	levelBuild();
 
     }

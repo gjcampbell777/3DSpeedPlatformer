@@ -13,6 +13,7 @@ public class CameraController : MonoBehaviour
     public Transform player;
     public Transform pivot;
     public Vector3 offset;
+    public Transform target;
 
     void Start () {
         if(!useOffsetValues){
@@ -20,7 +21,7 @@ public class CameraController : MonoBehaviour
         }
 
         pivot.position = player.position;
-        pivot.parent = null;
+        pivot.parent = target.transform;
 
     }
 
@@ -40,8 +41,8 @@ public class CameraController : MonoBehaviour
         	controllerCamY = Input.GetAxisRaw("Right Stick Y") * (rotateSpeed * 200.0f) * Time.deltaTime;
     	}
         
-        pivot.Rotate(0, mouseCamX, 0);
-        pivot.Rotate(0, controllerCamX, 0);
+        target.Rotate(0, mouseCamX, 0);
+        target.Rotate(0, controllerCamX, 0);
         
         if (invertY){
             pivot.Rotate(mouseCamY, 0, 0);

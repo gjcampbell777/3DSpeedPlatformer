@@ -745,6 +745,7 @@ MonoBehaviour:
   player: {fileID: 1644583845}
   pivot: {fileID: 1339349186}
   offset: {x: 0, y: 1, z: 7}
+  target: {fileID: 1644583845}
 --- !u!81 &485207309
 AudioListener:
   m_ObjectHideFlags: 0
