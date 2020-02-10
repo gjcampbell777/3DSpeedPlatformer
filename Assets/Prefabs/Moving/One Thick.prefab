@@ -206,6 +206,7 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 5315656875779831730}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}
 --- !u!1 &6584276642715776184
 GameObject:
   m_ObjectHideFlags: 0

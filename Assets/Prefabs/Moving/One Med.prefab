@@ -392,3 +392,4 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 9141818804918287969}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}

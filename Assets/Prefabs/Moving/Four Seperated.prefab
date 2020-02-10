@@ -203,6 +203,7 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 3998205111013408114}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}
 --- !u!1 &4202038390682185978
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +509,7 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 4989772145469751011}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}
 --- !u!1 &5565317366152616536
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,6 +899,7 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 8830762136531570441}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}
 --- !u!1 &9180557498668591541
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,3 +1010,4 @@ MonoBehaviour:
   zaxis: 0
   speed: 20
   block: {fileID: 9180557498668591541}
+  rotten: {fileID: 2100000, guid: 396ea795e28623647971c724407e6211, type: 2}

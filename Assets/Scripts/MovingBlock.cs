@@ -9,11 +9,13 @@ public class MovingBlock : MonoBehaviour
     public bool zaxis;
     public float speed;
     public GameObject block;
+    public Material rotten;
 
     bool moveXpos;
     bool moveZpos;
 
  	Vector3 startPos;
+ 	MeshRenderer mr;
 
     void Start()
     {
@@ -46,6 +48,12 @@ public class MovingBlock : MonoBehaviour
     		moveZpos = true;
     	} else {
     		moveZpos = false;
+    	}
+
+    	if(!xaxis && !zaxis)
+    	{
+    		mr = this.GetComponent<MeshRenderer>();
+        	mr.material = rotten;
     	}
 
     }
