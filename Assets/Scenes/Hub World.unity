@@ -4165,17 +4165,17 @@ MonoBehaviour:
   jumpNoise: {fileID: 519269293}
   respawnNoise: {fileID: 54133630}
   characterSkins:
-  - {fileID: 2100000, guid: 8d5a324e1b6a0d44c875fdbd475e22b9, type: 2}
-  - {fileID: 2100000, guid: 5624862376087f240b50f6a8a373bb83, type: 2}
-  - {fileID: 2100000, guid: 62136a2b40b5e294795a56583a9451fa, type: 2}
-  - {fileID: 2100000, guid: 318947ba2b4d8af4fbbbcd0e339d1467, type: 2}
-  - {fileID: 2100000, guid: 7531da5f93efe9e4489bd58faa432824, type: 2}
+  - {fileID: 2100000, guid: 4764438cf493b8947985ccb79cce116a, type: 2}
+  - {fileID: 2100000, guid: 1966046085e35984c9a2b169c900cd65, type: 2}
+  - {fileID: 2100000, guid: ed3204e4c9466f344b561cc44893f74b, type: 2}
+  - {fileID: 2100000, guid: c90882d3287102c47a6e1b3c988b7583, type: 2}
+  - {fileID: 2100000, guid: 59bcf03e7bd6a7f459be52095c859344, type: 2}
+  - {fileID: 2100000, guid: e03cc52719a759445b3f1a6509c0add7, type: 2}
+  - {fileID: 2100000, guid: 3ec2d8422535e9341ab1349162a4032e, type: 2}
+  - {fileID: 2100000, guid: 75bd58dfd7de8c945a1c160fe8c7a94e, type: 2}
   - {fileID: 2100000, guid: 42806559a24f32a43aa4a2670138cf7b, type: 2}
-  - {fileID: 2100000, guid: 0d2b168cc172234409100319a562989d, type: 2}
-  - {fileID: 2100000, guid: 201b92e97dd24d1478e27c8d38c2e2b0, type: 2}
-  - {fileID: 2100000, guid: 627d162b6b756c94680ca7db5830f4ae, type: 2}
-  - {fileID: 2100000, guid: 727f61c75f8320d4ab79aaf01ab76181, type: 2}
-  - {fileID: 2100000, guid: 10a76516dc20d7740a965a52140b5c4c, type: 2}
+  - {fileID: 2100000, guid: b8b59946347fca144a2e96bd2938e9f1, type: 2}
+  - {fileID: 2100000, guid: b0ac120d8ad9aad45879fa9b23a8c392, type: 2}
   playerSkin: {fileID: 615882415}
   respawnTime: 0
 --- !u!143 &741217458

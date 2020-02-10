@@ -2923,7 +2923,17 @@ MonoBehaviour:
   jumpNoise: {fileID: 2115917840}
   respawnNoise: {fileID: 526425757}
   characterSkins:
-  - {fileID: 2100000, guid: 8d5a324e1b6a0d44c875fdbd475e22b9, type: 2}
+  - {fileID: 2100000, guid: 4764438cf493b8947985ccb79cce116a, type: 2}
+  - {fileID: 2100000, guid: 1966046085e35984c9a2b169c900cd65, type: 2}
+  - {fileID: 2100000, guid: ed3204e4c9466f344b561cc44893f74b, type: 2}
+  - {fileID: 2100000, guid: c90882d3287102c47a6e1b3c988b7583, type: 2}
+  - {fileID: 2100000, guid: 59bcf03e7bd6a7f459be52095c859344, type: 2}
+  - {fileID: 2100000, guid: e03cc52719a759445b3f1a6509c0add7, type: 2}
+  - {fileID: 2100000, guid: 3ec2d8422535e9341ab1349162a4032e, type: 2}
+  - {fileID: 2100000, guid: 75bd58dfd7de8c945a1c160fe8c7a94e, type: 2}
+  - {fileID: 2100000, guid: 42806559a24f32a43aa4a2670138cf7b, type: 2}
+  - {fileID: 2100000, guid: b8b59946347fca144a2e96bd2938e9f1, type: 2}
+  - {fileID: 2100000, guid: b0ac120d8ad9aad45879fa9b23a8c392, type: 2}
   playerSkin: {fileID: 1179584401}
   respawnTime: 0
 --- !u!143 &1885424380
