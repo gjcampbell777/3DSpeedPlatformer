@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
@@ -16,11 +17,34 @@ public class MainMenu : MonoBehaviour
     public GameObject highscoreBackButton;
     public GameObject gameinfoBackButton;
     public GameObject optionsBackButton;
+    public TextMeshProUGUI BeanTalk;
 
     void Start()
     {
     	EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(menuFirstButton);
+
+    	switch (Random.Range(0,5))
+    	{
+    		case 0:
+    			BeanTalk.text = "THAT'S MY GAME!";
+    			break;
+    		case 1:
+    			BeanTalk.text = "GOTTA GO FAST!";
+    			break;
+    		case 2:
+    			BeanTalk.text = "IT ME!";
+    			break;
+    		case 3:
+    			BeanTalk.text = "DO YOUR BEST!";
+    			break;
+    		case 4:
+    			BeanTalk.text = "NEVER GIVE UP!";
+    			break;
+    		default:
+    			BeanTalk.text = "ERROR! SAVE ME!";
+    			break;
+    	}
     }
 
 	public void PlayGame()
