@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         mr = playerSkin.GetComponent<MeshRenderer>();
         mr.material =  characterSkins[characterSelect];
 
-        Application.targetFrameRate = 45;
+        Application.targetFrameRate = 60;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
