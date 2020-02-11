@@ -22,7 +22,7 @@ public class InfinityRunner : MonoBehaviour
 
     private int selection;
     private int size;
-	private float countdownTime = 3.0f;
+	private float countdownTime = 10.0f;
 	private float spawnTime = 0.0f;
 
 	private Transform lastSpawn;
@@ -70,9 +70,9 @@ public class InfinityRunner : MonoBehaviour
                 escalation++;
                 level = 1;
 
-                if(escalation > 7 && countdownTime > 2.0f)
+                if(escalation > 5 && countdownTime > 5.0f)
                 {
-                	countdownTime -= 0.25f;
+                	countdownTime -= 0.5f;
                 }
 
             }
@@ -81,9 +81,9 @@ public class InfinityRunner : MonoBehaviour
             GameObject wallOne;
             GameObject wallTwo;
 
-            if(escalation > 7)
+            if(escalation > 6)
             {
-            	size = 7;
+            	size = 6;
             } else {
             	size = escalation;
             }
@@ -91,11 +91,11 @@ public class InfinityRunner : MonoBehaviour
             if(level == 1)
             {
 
-            	if(escalation > 2 && escalation < 5)
+            	if(escalation > 3 && escalation < 6)
             	{
             		selection = Random.Range(0, medObstaclelIst.Length);
             		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
-            	} else if(escalation >= 5) {
+            	} else if(escalation >= 6) {
             		selection = Random.Range(0, obstacleList.Length);
             		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
             	} else {
@@ -109,11 +109,11 @@ public class InfinityRunner : MonoBehaviour
 
             } else {
 
-            	if(escalation > 2 && escalation < 5)
+            	if(escalation > 3 && escalation < 6)
             	{
             		selection = Random.Range(0, medObstaclelIst.Length);
             		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
-            	} else if(escalation >= 5) {
+            	} else if(escalation >= 6) {
             		selection = Random.Range(0, obstacleList.Length);
             		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
             	} else {
