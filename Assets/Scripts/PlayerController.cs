@@ -347,7 +347,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Debug.Log(transform.position);
-        Debug.Log(velocity.x + "," + velocity.z);
+        //Debug.Log(velocity.x + "," + velocity.z);
 
         //Move the player in different directions based on camera look direction
         if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)

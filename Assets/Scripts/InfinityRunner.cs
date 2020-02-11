@@ -57,6 +57,8 @@ public class InfinityRunner : MonoBehaviour
     void Update()
     {
 
+    	Debug.Log(lastSpawn.position.z);
+
     	distance = player.transform.position.z;
 
     	if(!lastSpawn)
@@ -172,7 +174,33 @@ public class InfinityRunner : MonoBehaviour
     }
 
     void respawn()
-    {
+    {	
+
+    	GameObject spawn;
+        GameObject wallOne;
+        GameObject wallTwo;
+
+        if(escalation > 6)
+        {
+        	size = 6;
+        } else {
+        	size = escalation;
+        }
+
+    	for(int i = 0; i < 3; i++)
+    	{
+    		spawn = Instantiate(obstacleList[0], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
+
+	    	wallOne = Instantiate(boundaries, new Vector3(((25f*(size)))/2, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
+	    	wallTwo = Instantiate(boundaries, new Vector3(((25f*(size)))/-2, 0, lastSpawn.transform.position.z+(25*size)), Quaternion.identity) as GameObject;
+	        
+	        spawn.transform.localScale = new Vector3(spawn.transform.localScale.x*(0.25f*(size)), 1, spawn.transform.localScale.z*(0.25f*size));
+	        wallOne.transform.localScale = new Vector3(wallOne.transform.localScale.x*(0.25f*(size)), 1, wallOne.transform.localScale.z*(0.25f*size));
+	        wallTwo.transform.localScale = new Vector3(wallTwo.transform.localScale.x*(0.25f*(size)), 1, wallTwo.transform.localScale.z*(0.25f*size));
+
+
+	        lastSpawn = spawn.transform;
+    	}
 
 		script.transform.position = new Vector3(0, 11, lastSpawn.position.z+1);
     	script.transform.Rotate(0.0f, 0.0f, 0.0f, Space.Self);
