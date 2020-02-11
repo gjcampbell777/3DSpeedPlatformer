@@ -19,6 +19,7 @@ public class InfinityRunner : MonoBehaviour
     public GameObject[] easyObstacleList;
     public GameObject[] medObstaclelIst;
     public GameObject boundaries;
+    public Material[] startMaterials;
 
     private int selection;
     private int size;
@@ -26,6 +27,8 @@ public class InfinityRunner : MonoBehaviour
 	private float spawnTime = 0.0f;
 
 	private Transform lastSpawn;
+
+	MeshRenderer mr;
     
     void Awake()
     {
@@ -184,26 +187,56 @@ public class InfinityRunner : MonoBehaviour
     	GameObject start = Instantiate(obstacleList[0], new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
     	start.transform.localScale = new Vector3(25, 1, 25);
 
+    	mr = start.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[0];
+
     	walls = Instantiate(boundaries, new Vector3(12.5f, 0, 0), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[1];
+
         walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 0), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[1];
 
         GameObject startOne = Instantiate(obstacleList[0], new Vector3(0, 0, 25),  Quaternion.identity) as GameObject;
         startOne.transform.localScale = new Vector3(25, 1, 25);
 
+        mr = startOne.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[0];
+
         walls = Instantiate(boundaries, new Vector3(12.5f, 0, 25), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[2];
+
         walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 25), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[2];
 
         GameObject startTwo = Instantiate(obstacleList[0], new Vector3(0, 0, 50),  Quaternion.identity) as GameObject;
         startTwo.transform.localScale = new Vector3(25, 1, 25);
 
+        mr = startTwo.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[0];
+
         walls = Instantiate(boundaries, new Vector3(12.5f, 0, 50), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[1];
+
         walls = Instantiate(boundaries, new Vector3(-12.5f, 0, 50), Quaternion.identity) as GameObject;
         walls.transform.localScale = new Vector3(0.25f, 1, 0.25f);
+
+        mr = walls.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>();
+        mr.material = startMaterials[1];
 
     	lastSpawn = startTwo.transform;
 

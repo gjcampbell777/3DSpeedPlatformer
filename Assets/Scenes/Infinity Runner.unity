@@ -2740,6 +2740,10 @@ MonoBehaviour:
   - {fileID: 665153724702688003, guid: 3ad84dc4c084fc0458bf98f2f25c9c4b, type: 3}
   boundaries: {fileID: 9181995847428758509, guid: cd8f80a3dcff4954598e8b72fd740734,
     type: 3}
+  startMaterials:
+  - {fileID: 2100000, guid: 4d4054f64833e024c9083f2962d66c3e, type: 2}
+  - {fileID: 2100000, guid: fae7071559ed80d43bc5f5b0bebab23d, type: 2}
+  - {fileID: 2100000, guid: 215a0c487f5af7a40bbc1b61180fa32b, type: 2}
 --- !u!1 &1834093088
 GameObject:
   m_ObjectHideFlags: 0
