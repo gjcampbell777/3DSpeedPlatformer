@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
 
         mr = playerSkin.GetComponent<MeshRenderer>();
         mr.material =  characterSkins[characterSelect];
+
+        Application.targetFrameRate = 45;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -156,6 +158,48 @@ public class PlayerController : MonoBehaviour
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
         moveDirection.y = yStore;
 
+        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
+
+        if (jump >= 2)
+        {
+            if(maxSpeed > maxSpeedStore/1.5f)
+            {
+                maxSpeed -= acceleration;
+            }
+        }
+
+        if (characterController.collisionFlags == CollisionFlags.None)
+        {
+            wallRunning = false;
+            wall = 0;
+        }
+
+        if (wallRunning)
+        {
+
+            if(maxSpeed < maxSpeedStore*1.5f)
+            {
+                maxSpeed += acceleration;
+            }
+
+            jump = 0;
+
+            if(wall == 1)
+            {
+                wallRunTime = Time.time;
+            }
+
+            if(wallRunTime + oneSec < Time.time)
+            {
+                
+                moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
+                
+            } else {
+                moveDirection.y = 0.0f;
+            }
+
+        }
+
         if(transform.position.y < -20.0f)
         {
 
@@ -172,16 +216,9 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (jump >= 2)
-        {
-            if(maxSpeed > maxSpeedStore/1.5f)
-            {
-                maxSpeed -= acceleration;
-            }
-        }
-
         if (characterController.isGrounded)
         {
+
             diving = false;
             dive = 0;
             jump = 0;
@@ -226,7 +263,7 @@ public class PlayerController : MonoBehaviour
 
                     if(maxSpeed < maxSpeedStore*2)
                     {
-                        maxSpeed += acceleration*2;
+                        maxSpeed += acceleration*5;
                     }
 
                     if(Input.GetButton("Jump") && slideTime + quarterSec >= Time.time)
@@ -248,11 +285,14 @@ public class PlayerController : MonoBehaviour
                 characterController.height = controllerHeight;
                 capsule.height = capsuleHeight;
                 transform.localScale = new Vector3(transform.localScale.x, transformHeight, transform.localScale.z);
-            
+                sliding = false;
+
             }
 
         } else {
+            
             slideTime = Time.time;
+            sliding = false;
 
             if((Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f) && !PauseMenu.GameIsPaused)
             {
@@ -281,60 +321,21 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if(Input.GetButtonDown("Character Swap"))
-        {
-            characterSelect = Random.Range(0, characterSkins.Length);
-            mr.material =  characterSkins[characterSelect];
-        }
-
         if (Input.GetButtonDown("Jump") && jump <= 1)
         {
             moveDirection.y = jumpHeight;
             jump++;
             jumpNoise.Play();
+
+            if(wallRunning) wallRunning = false;
+
         }
 
-        if (characterController.collisionFlags == CollisionFlags.None)
+        if(Input.GetButtonDown("Character Swap"))
         {
-            wallRunning = false;
-            wall = 0;
+            characterSelect = Random.Range(0, characterSkins.Length);
+            mr.material =  characterSkins[characterSelect];
         }
-
-        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
-
-        if (wallRunning)
-        {
-
-            if(maxSpeed < maxSpeedStore*1.5f)
-            {
-                maxSpeed += acceleration;
-            }
-
-            jump = 0;
-
-            if(wall == 1)
-            {
-                wallRunTime = Time.time;
-            }
-
-            if(wallRunTime + oneSec < Time.time)
-            {
-                
-                moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
-                
-            } else {
-                moveDirection.y = 0.0f;
-            }
-
-            if (Input.GetButtonDown("Jump") && jump <= 1)
-            {
-                moveDirection.y = jumpHeight;
-                wallRunning = false;
-            }
-        }
-
-        velocity.x += moveDirection.x; 
-        velocity.z += moveDirection.z;
 
         if((Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0) || (Input.GetButton("Stop") || Input.GetAxis("Stop") == 1.0f)){
 
@@ -345,9 +346,28 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        //Debug.Log(transform.position);
+        Debug.Log(velocity.x + "," + velocity.z);
+
+        //Move the player in different directions based on camera look direction
+        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
+            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
+            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
+        }
+
+    }
+
+    void FixedUpdate()
+    {
+
+        velocity.x += moveDirection.x; 
+        velocity.z += moveDirection.z;
+
         //Remove or "lower" friction to add an 'ice' effect
-            velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
-            velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
+        velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
+        velocity.z = Mathf.SmoothDamp(velocity.z, 0.0f, ref zVelocity, friction);
 
         if(characterController.velocity == new Vector3(0, 0, 0))
         {
@@ -358,29 +378,12 @@ public class PlayerController : MonoBehaviour
 
         velocity.y = moveDirection.y;
 
-        if(moveDirection.y <= -5 && Mathf.Abs(velocity.x) <= 1.5f && Mathf.Abs(velocity.z) <= 1.5f
-            && (Input.GetAxis("Horizontal") != 0 && Input.GetAxis("Vertical") != 0))
-        {
-            velocity.x = velocity.x * Mathf.Abs(moveDirection.y);
-            velocity.z = velocity.z * Mathf.Abs(moveDirection.y);
-        }
-
-        Debug.Log(transform.position);
-
         // Move the controller
         if((finished == false || respawn == false) && respawnTime + tenthSec < Time.time)
         {
             characterController.Move(velocity * Time.deltaTime);
             respawn = false;
         }
-
-        //Move the player in different directions based on camera look direction
-        if(Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            transform.rotation = Quaternion.Euler(0f, pivot.rotation.eulerAngles.y, 0f);
-            Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
-            playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotationSpeed * Time.deltaTime);
-        }
-
+        
     }
 }
