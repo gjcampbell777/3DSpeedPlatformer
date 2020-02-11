@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private Vector3 gravityVelocity;
 
+    bool jumpPress = false;
+    bool grounded = true;
     float slideTime = 0.0f;
     float wallRunTime = 0.0f;
     public float respawnTime = 0.0f;
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour
         mr = playerSkin.GetComponent<MeshRenderer>();
         mr.material =  characterSkins[characterSelect];
 
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 15;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -152,14 +154,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        float yStore = moveDirection.y;
-        moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
-        moveDirection = transform.TransformDirection(moveDirection);
-        moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
-        moveDirection.y = yStore;
-
-        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
-
         if (jump >= 2)
         {
             if(maxSpeed > maxSpeedStore/1.5f)
@@ -172,32 +166,6 @@ public class PlayerController : MonoBehaviour
         {
             wallRunning = false;
             wall = 0;
-        }
-
-        if (wallRunning)
-        {
-
-            if(maxSpeed < maxSpeedStore*1.5f)
-            {
-                maxSpeed += acceleration;
-            }
-
-            jump = 0;
-
-            if(wall == 1)
-            {
-                wallRunTime = Time.time;
-            }
-
-            if(wallRunTime + oneSec < Time.time)
-            {
-                
-                moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
-                
-            } else {
-                moveDirection.y = 0.0f;
-            }
-
         }
 
         if(transform.position.y < -20.0f)
@@ -219,6 +187,7 @@ public class PlayerController : MonoBehaviour
         if (characterController.isGrounded)
         {
 
+            grounded = true;
             diving = false;
             dive = 0;
             jump = 0;
@@ -273,7 +242,9 @@ public class PlayerController : MonoBehaviour
                 
                 } else {
 
-                    if(maxSpeed > maxSpeedStore/4)
+                    friction = 0f;
+
+                    if(maxSpeed > 1)
                     {
                         maxSpeed -= acceleration*2;
                     }
@@ -293,6 +264,7 @@ public class PlayerController : MonoBehaviour
             
             slideTime = Time.time;
             sliding = false;
+            grounded = false;
 
             if((Input.GetButton("Crouch") || Input.GetAxis("Crouch") == 1.0f) && !PauseMenu.GameIsPaused)
             {
@@ -314,16 +286,14 @@ public class PlayerController : MonoBehaviour
             if(diving && moveDirection.y > 0.75 && (Input.GetButtonDown("Crouch") || Input.GetAxis("Crouch") == 1.0f ))
             {
                 dive++;
-                if(dive == 1){
-                    maxSpeed += 10;
-                }
+                
             }
 
         }
 
         if (Input.GetButtonDown("Jump") && jump <= 1)
         {
-            moveDirection.y = jumpHeight;
+            jumpPress = true;
             jump++;
             jumpNoise.Play();
 
@@ -362,8 +332,53 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
+        float yStore = moveDirection.y;
+        moveDirection = new Vector3(Input.GetAxis("Horizontal"), moveDirection.y, Input.GetAxis("Vertical"));
+        moveDirection = transform.TransformDirection(moveDirection);
+        moveDirection = Vector3.ClampMagnitude(moveDirection, 1.0f);
+        moveDirection.y = yStore;
+
+        if (wallRunning)
+        {
+
+            if(maxSpeed < maxSpeedStore*1.5f)
+            {
+                maxSpeed += acceleration;
+            }
+
+            jump = 0;
+
+            if(wall == 1)
+            {
+                wallRunTime = Time.time;
+            }
+
+            if(wallRunTime + oneSec < Time.time)
+            {
+                
+                moveDirection.y += Physics.gravity.y * (gravity/8) * Time.deltaTime;
+                
+            } else {
+                moveDirection.y = 0.0f;
+            }
+
+        }
+
+        if(dive == 1){
+            maxSpeed += 10;
+        }
+
+        moveDirection.y += Physics.gravity.y * gravity * Time.deltaTime;
+
         velocity.x += moveDirection.x; 
         velocity.z += moveDirection.z;
+
+        if((!grounded || sliding) && !wallRunning)
+        {
+            friction = 1.75f;
+        } else {
+            friction = 1f;
+        }
 
         //Remove or "lower" friction to add an 'ice' effect
         velocity.x = Mathf.SmoothDamp(velocity.x, 0.0f, ref xVelocity, friction);
@@ -375,6 +390,12 @@ public class PlayerController : MonoBehaviour
         }
 
         velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+
+        if(jumpPress) 
+        {
+            moveDirection.y = jumpHeight;
+            jumpPress = false;
+        }
 
         velocity.y = moveDirection.y;
 
