@@ -57,8 +57,6 @@ public class InfinityRunner : MonoBehaviour
     void Update()
     {
 
-    	Debug.Log(lastSpawn.position.z);
-
     	distance = player.transform.position.z;
 
     	if(!lastSpawn)
