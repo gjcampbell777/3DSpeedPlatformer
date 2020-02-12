@@ -245,53 +245,68 @@ public class FloorLevel : MonoBehaviour
                     }
                 }
 
-                if(Random.Range(0, 10) != 0)
+                if(escalation == 1)
                 {
-                    
-                    switch (level)
+                    selection = Random.Range(0, easyObstacleList.Length);
+                    Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                } else {
+                    if(Random.Range(0, 10) != 0)
                     {
-                        case 1:
-                            selection = Random.Range(0, easyObstacleList.Length);
-                            Instantiate(easyObstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        case 2:
-                            selection = Random.Range(0, medObstaclelIst.Length);
-                            Instantiate(medObstaclelIst[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        case 3:
-                            selection = Random.Range(2, obstacleList.Length);
-                            Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        default:
-                            selection = Random.Range(2, obstacleList.Length);
-                            Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
+                        
+                        switch (level)
+                        {
+                            case 1:
+                                selection = Random.Range(0, easyObstacleList.Length);
+                                Instantiate(easyObstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            case 2:
+                                selection = Random.Range(0, medObstaclelIst.Length);
+                                Instantiate(medObstaclelIst[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            case 3:
+                                selection = Random.Range(2, obstacleList.Length);
+                                Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            default:
+                                selection = Random.Range(2, obstacleList.Length);
+                                Instantiate(obstacleList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                        }
+
                     }
+                    
                 }
 
-                if(Random.Range(0, 10) != 0)
+
+                if(escalation == 1)
                 {
-                    
-                    switch (level)
+                    selection = Random.Range(0, easyObstacleList.Length);
+                    Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                } else {
+                    if(Random.Range(0, 10) != 0)
                     {
-                        case 1:
-                            selection = Random.Range(0, easyObstacleList.Length);
-                            Instantiate(easyObstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        case 2:
-                            selection = Random.Range(0, medObstaclelIst.Length);
-                            Instantiate(medObstaclelIst[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        case 3:
-                            selection = Random.Range(2, obstacleList.Length);
-                            Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
-                        default:
-                            selection = Random.Range(2, obstacleList.Length);
-                            Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
-                            break;
+                        
+                        switch (level)
+                        {
+                            case 1:
+                                selection = Random.Range(0, easyObstacleList.Length);
+                                Instantiate(easyObstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            case 2:
+                                selection = Random.Range(0, medObstaclelIst.Length);
+                                Instantiate(medObstaclelIst[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            case 3:
+                                selection = Random.Range(2, obstacleList.Length);
+                                Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                            default:
+                                selection = Random.Range(2, obstacleList.Length);
+                                Instantiate(obstacleList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
+                                break;
+                        }
                     }
-                }
+                }   
 
                 if(i == escalation-1)
                 {
