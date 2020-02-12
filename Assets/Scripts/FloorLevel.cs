@@ -247,7 +247,7 @@ public class FloorLevel : MonoBehaviour
 
                 if(escalation == 1)
                 {
-                    selection = Random.Range(0, easyObstacleList.Length);
+                    selection = Random.Range(0, cornerList.Length);
                     Instantiate(cornerList[selection], new Vector3(100*i+50, Random.Range(-5, 0), -100*j-50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
                 } else {
                     if(Random.Range(0, 10) != 0)
@@ -280,7 +280,7 @@ public class FloorLevel : MonoBehaviour
 
                 if(escalation == 1)
                 {
-                    selection = Random.Range(0, easyObstacleList.Length);
+                    selection = Random.Range(0, cornerList.Length);
                     Instantiate(cornerList[selection], new Vector3(-100*i-50, Random.Range(-5, 0), 100*j+50),  Quaternion.Euler(0, (45*Random.Range(0,8)), 0));
                 } else {
                     if(Random.Range(0, 10) != 0)
