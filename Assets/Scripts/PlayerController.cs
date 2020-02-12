@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
         mr = playerSkin.GetComponent<MeshRenderer>();
         mr.material =  characterSkins[characterSelect];
 
-        Application.targetFrameRate = 15;
+        //Application.targetFrameRate = 15;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
 
                     friction = 0f;
 
-                    if(maxSpeed > 1)
+                    if(maxSpeed > maxSpeedStore/4)
                     {
                         maxSpeed -= acceleration*2;
                     }
