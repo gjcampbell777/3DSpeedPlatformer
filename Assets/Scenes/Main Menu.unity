@@ -3189,6 +3189,13 @@ MonoBehaviour:
   gameinfoBackButton: {fileID: 1729268436}
   optionsBackButton: {fileID: 552329883}
   BeanTalk: {fileID: 195438700}
+  phrases:
+  - THAT'S MY GAME!
+  - GOTTA GO FAST!
+  - IT ME!
+  - DO YOUR BEST!
+  - NEVER GIVE UP!
+  - BE THE BEST THAT YOU CAN BEAN!
 --- !u!1 &517452778
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 
+[System.Serializable]
+
 public class MainMenu : MonoBehaviour
 {
     
@@ -18,33 +20,14 @@ public class MainMenu : MonoBehaviour
     public GameObject gameinfoBackButton;
     public GameObject optionsBackButton;
     public TextMeshProUGUI BeanTalk;
+    public string[] phrases;
 
     void Start()
     {
     	EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(menuFirstButton);
-
-    	switch (Random.Range(0,5))
-    	{
-    		case 0:
-    			BeanTalk.text = "THAT'S MY GAME!";
-    			break;
-    		case 1:
-    			BeanTalk.text = "GOTTA GO FAST!";
-    			break;
-    		case 2:
-    			BeanTalk.text = "IT ME!";
-    			break;
-    		case 3:
-    			BeanTalk.text = "DO YOUR BEST!";
-    			break;
-    		case 4:
-    			BeanTalk.text = "NEVER GIVE UP!";
-    			break;
-    		default:
-    			BeanTalk.text = "ERROR! SAVE ME!";
-    			break;
-    	}
+    	BeanTalk.text = phrases[Random.Range(0, phrases.Length)];
+    	
     }
 
 	public void PlayGame()
@@ -63,27 +46,7 @@ public class MainMenu : MonoBehaviour
 	{
 		EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(skinsBackButton);
-    	switch (Random.Range(0,5))
-    	{
-    		case 0:
-    			BeanTalk.text = "THAT'S MY GAME!";
-    			break;
-    		case 1:
-    			BeanTalk.text = "GOTTA GO FAST!";
-    			break;
-    		case 2:
-    			BeanTalk.text = "IT ME!";
-    			break;
-    		case 3:
-    			BeanTalk.text = "DO YOUR BEST!";
-    			break;
-    		case 4:
-    			BeanTalk.text = "NEVER GIVE UP!";
-    			break;
-    		default:
-    			BeanTalk.text = "ERROR! SAVE ME!";
-    			break;
-    	}
+    	BeanTalk.text = phrases[Random.Range(0, phrases.Length)];
 	}
 
 	public void Highscores()
@@ -97,27 +60,7 @@ public class MainMenu : MonoBehaviour
 	{
 		EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(highscoreBackButton);
-    	switch (Random.Range(0,5))
-    	{
-    		case 0:
-    			BeanTalk.text = "THAT'S MY GAME!";
-    			break;
-    		case 1:
-    			BeanTalk.text = "GOTTA GO FAST!";
-    			break;
-    		case 2:
-    			BeanTalk.text = "IT ME!";
-    			break;
-    		case 3:
-    			BeanTalk.text = "DO YOUR BEST!";
-    			break;
-    		case 4:
-    			BeanTalk.text = "NEVER GIVE UP!";
-    			break;
-    		default:
-    			BeanTalk.text = "ERROR! SAVE ME!";
-    			break;
-    	}
+    	BeanTalk.text = phrases[Random.Range(0, phrases.Length)];
 	}
 
 	public void GameInfo()
@@ -131,27 +74,7 @@ public class MainMenu : MonoBehaviour
 	{
 		EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(gameinfoBackButton);
-    	switch (Random.Range(0,5))
-    	{
-    		case 0:
-    			BeanTalk.text = "THAT'S MY GAME!";
-    			break;
-    		case 1:
-    			BeanTalk.text = "GOTTA GO FAST!";
-    			break;
-    		case 2:
-    			BeanTalk.text = "IT ME!";
-    			break;
-    		case 3:
-    			BeanTalk.text = "DO YOUR BEST!";
-    			break;
-    		case 4:
-    			BeanTalk.text = "NEVER GIVE UP!";
-    			break;
-    		default:
-    			BeanTalk.text = "ERROR! SAVE ME!";
-    			break;
-    	}
+    	BeanTalk.text = phrases[Random.Range(0, phrases.Length)];
 	}
 
 	public void Options()
@@ -165,27 +88,7 @@ public class MainMenu : MonoBehaviour
 	{
 		EventSystem.current.SetSelectedGameObject(null);
     	EventSystem.current.SetSelectedGameObject(optionsBackButton);
-    	switch (Random.Range(0,5))
-    	{
-    		case 0:
-    			BeanTalk.text = "THAT'S MY GAME!";
-    			break;
-    		case 1:
-    			BeanTalk.text = "GOTTA GO FAST!";
-    			break;
-    		case 2:
-    			BeanTalk.text = "IT ME!";
-    			break;
-    		case 3:
-    			BeanTalk.text = "DO YOUR BEST!";
-    			break;
-    		case 4:
-    			BeanTalk.text = "NEVER GIVE UP!";
-    			break;
-    		default:
-    			BeanTalk.text = "ERROR! SAVE ME!";
-    			break;
-    	}
+    	BeanTalk.text = phrases[Random.Range(0, phrases.Length)];
 	}
 
 	public void QuitGame()
