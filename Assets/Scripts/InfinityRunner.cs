@@ -68,15 +68,15 @@ public class InfinityRunner : MonoBehaviour
     	{
 
             level++;
-            if(level > 3) 
+            if(level > 5) 
             {
                 escalation++;
                 level = 1;
 
-                if(escalation > 5 && countdownTime > 5.0f)
+                /*if(escalation > 5 && countdownTime > 4.0f)
                 {
-                	countdownTime -= 0.5f;
-                }
+                	countdownTime -= 1f;
+                }*/
 
             }
 
@@ -98,13 +98,15 @@ public class InfinityRunner : MonoBehaviour
             	{
             		selection = Random.Range(0, medObstaclelIst.Length);
             		spawn = Instantiate(medObstaclelIst[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
+            		countdownTime = 5.0f;
             	} else if(escalation >= 6) {
             		selection = Random.Range(0, obstacleList.Length);
             		spawn = Instantiate(obstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
+            		countdownTime = 3.0f;
             	} else {
             		selection = Random.Range(0, easyObstacleList.Length);
             		spawn = Instantiate(easyObstacleList[selection], new Vector3(0, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
-
+            		countdownTime = 7.0f;
             	}
 
             	wallOne = Instantiate(boundaries, new Vector3(((25f*(size)))/2, 0, lastSpawn.transform.position.z+(25*size)-12.5f), Quaternion.identity) as GameObject;
